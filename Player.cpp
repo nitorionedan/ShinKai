@@ -42,7 +42,7 @@ void Player::Draw()
 void Player::Move()
 {
 	// use gravity
-	pos.y += GRAVITY;
+//	pos.y += GRAVITY;
 
 	// moving
 	if (Keyboard_Get(KEY_INPUT_RIGHT) >= 1)	pos.x + MAX_SPEED;

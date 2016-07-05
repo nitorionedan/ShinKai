@@ -17,7 +17,7 @@
 
 static int FrameStartTime;
 static int FPS_60 = 1000 / 60;
-static bool isFullSc = false;
+static bool isFullSc = true;
 static bool isPlay = true;
 
 
