@@ -6,13 +6,14 @@
 
 Game::Game(ISceneChanger * changer)
 	: BaseScene(changer)
+	, img(new Image)
 {
+	img->Load("Images/test_bak.png", "back");
 }
 
 
 Game::~Game()
 {
-
 }
 
 
@@ -26,4 +27,6 @@ void Game::Draw()
 {
 	// TEST
 	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_SCENE_NOW");
+
+	img->Draw(0, 0, "back");
 }

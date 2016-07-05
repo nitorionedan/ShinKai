@@ -3,6 +3,9 @@
 
 #include "BaseScene.hpp"
 #include "ISceneChanger.hpp"
+#include "Image.hpp"
+
+#include <memory>
 
 
 //ゲーム画面クラス
@@ -15,7 +18,7 @@ public:
 	void Draw() override;       //描画処理をオーバーライド
 	
 private:
-
+	std::unique_ptr<Image> img;
 };
 
 #endif

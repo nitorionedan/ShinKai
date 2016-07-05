@@ -60,7 +60,7 @@ void FPSMng()
 
 void Initialize()
 {
-	SetGraphMode(850, 650, 32), ChangeWindowMode(TRUE), DxLib_Init();							// ウィンドウ初期設定(VGA),DxLib起動
+	SetGraphMode(320, 240, 32), ChangeWindowMode(isFullSc), DxLib_Init();						// ウィンドウ初期設定(VGA),DxLib起動
 	SetDrawScreen(DX_SCREEN_BACK);																// 裏画面処理
 	SetMainWindowText("演習");																	// タイトルを設定
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);											// 画面モード変更後、素材メモリをリセットしない
@@ -73,5 +73,8 @@ void DynamicConfig()
 {
 	// メインループを抜ける
 	if (Keyboard_Get(KEY_INPUT_ESCAPE) == 1)	isPlay = false;
+
+	// Change window mode
+	if (Keyboard_Get(KEY_INPUT_F5) == 1)	isFullSc = !isFullSc;
 }
 // EOF
