@@ -79,21 +79,22 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 
 	const int& Hdl = GetHandle(Key);
 
-	int Width = 0, Height = 0;					// 画像の横幅と縦幅
-	static int Correction = 0;					// ラスタースクロールの補正
+	int Width = 0, Height = 0;					// Images width & height
+	static int Correction = 0;					// Adjust raster scrole
+	static int error = 0;						// Return only variable
 
-	GetGraphSize(Hdl, &Width, &Height);	// 画像のサイズを得る
+	GetGraphSize(Hdl, &Width, &Height);
 
 	switch (isVertical)
 	{
 	case true:
 		for (int I = 0; I < Height; ++I)
 		{
-			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180.0 * DX_PI * Cycle) * Shake;	// cosの値で左右に揺らす
+			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180.0 * DX_PI * Cycle) * Shake;
 			const int& DestY = Y - Height / 2 + I;
 
 			// 画像の分割描画（縦に１pixずつ）
-			DrawRectGraph
+			error = DrawRectGraph
 				(
 					DestX, DestY,
 					0, I,
@@ -111,7 +112,7 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 			const int& DestY = Y - Height / 2 + std::cos((I + Correction) / 180. * DX_PI * Cycle) * Shake;
 
 			// 画像の分割描画（横に１pixずつ）
-			DrawRectGraph
+			error = DrawRectGraph
 				(
 					DestX, DestY,
 					I, 0,
@@ -125,6 +126,8 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 	}
 
 	++Correction;
+
+	return error;
 }
 
 

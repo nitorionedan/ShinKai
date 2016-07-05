@@ -28,6 +28,6 @@ void Game::Draw()
 	// TEST
 	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_SCENE_NOW");
 
-//	img->Draw(0, 0, "back");
-	img->DrawRasterScroll(0, 20, 5., 100., "back");
+	img->Draw(0, 0, "back");
+//	img->DrawRasterScroll(0, 20, 5., 100., "back");
 }
