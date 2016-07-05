@@ -3,6 +3,8 @@
 
 
 #include "DxLib.h"
+#include "Graphics2D.hpp"
+
 #include <string>
 #include <vector>
 
@@ -21,6 +23,7 @@ public:
 	int DrawRect(const int& DestX, const int& DestY,
 		const int& SrcX, const int& SrcY, const int& Width, const int& Height,
 		std::string key, const int& TransFlag = 0, const int& TurnFlag = 0);
+	int DrawRasterScroll(const int &X, const int &Y, double Cycle, double Shake, const std::string &Key, bool isVertical = true);
 
 	int GetSize(std::string key, int* width, int* height);
 

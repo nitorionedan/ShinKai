@@ -8,7 +8,7 @@ Game::Game(ISceneChanger * changer)
 	: BaseScene(changer)
 	, img(new Image)
 {
-	img->Load("Images/test_bak.png", "back");
+	img->Load("Images/test_back.png", "back");
 }
 
 
@@ -28,5 +28,6 @@ void Game::Draw()
 	// TEST
 	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_SCENE_NOW");
 
-	img->Draw(0, 0, "back");
+//	img->Draw(0, 0, "back");
+	img->DrawRasterScroll(0, 20, 5., 100., "back");
 }

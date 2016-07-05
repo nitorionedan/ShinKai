@@ -73,6 +73,61 @@ int Image::DrawRect(const int & DestX, const int & DestY, const int & SrcX, cons
 }
 
 
+int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double Shake, const std::string & Key, bool isVertical)
+{
+	if (count == 0)	return -1;
+
+	const int& Hdl = GetHandle(Key);
+
+	int Width = 0, Height = 0;					// 画像の横幅と縦幅
+	static int Correction = 0;					// ラスタースクロールの補正
+
+	GetGraphSize(Hdl, &Width, &Height);	// 画像のサイズを得る
+
+	switch (isVertical)
+	{
+	case true:
+		for (int I = 0; I < Height; ++I)
+		{
+			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180.0 * DX_PI * Cycle) * Shake;	// cosの値で左右に揺らす
+			const int& DestY = Y - Height / 2 + I;
+
+			// 画像の分割描画（縦に１pixずつ）
+			DrawRectGraph
+				(
+					DestX, DestY,
+					0, I,
+					Width, 1,
+					Hdl,
+					TRUE, FALSE
+				);
+		}
+		break;
+
+	case false:
+		for (int I = 0; I < Width; ++I)
+		{
+			const int& DestX = X - Width / 2 + I;
+			const int& DestY = Y - Height / 2 + std::cos((I + Correction) / 180. * DX_PI * Cycle) * Shake;
+
+			// 画像の分割描画（横に１pixずつ）
+			DrawRectGraph
+				(
+					DestX, DestY,
+					I, 0,
+					1, Height,
+					Hdl,
+					TRUE, FALSE
+				);
+		}
+		break;
+
+	}
+
+	++Correction;
+}
+
+
 int Image::GetSize(std::string key, int * width, int * height)
 {
 	if (count == 0)	return -1;
