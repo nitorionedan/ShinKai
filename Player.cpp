@@ -24,7 +24,7 @@ Player::~Player()
 
 void Player::Initialize()
 {
-	pos.SetVecor2D(0., 0.);
+	pos.SetVecor2D(160., 120.);
 }
 
 
