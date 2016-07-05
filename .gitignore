@@ -8,7 +8,6 @@
 *.tlog
 *.idb
 *.pdb
-*.exe
 *.ipdb
 *.log
 *.opendb
