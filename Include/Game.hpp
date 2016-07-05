@@ -4,6 +4,7 @@
 #include "BaseScene.hpp"
 #include "ISceneChanger.hpp"
 #include "Image.hpp"
+#include "Player.hpp"
 
 #include <memory>
 
@@ -19,6 +20,7 @@ public:
 	
 private:
 	std::unique_ptr<Image> img;
+	std::shared_ptr<Player> player;
 };
 
 #endif

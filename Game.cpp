@@ -7,6 +7,7 @@
 Game::Game(ISceneChanger * changer)
 	: BaseScene(changer)
 	, img(new Image)
+	, player(new Player)
 {
 	img->Load("Images/test_back.png", "back");
 }
@@ -19,6 +20,9 @@ Game::~Game()
 
 void Game::Update()
 {
+	player->Update();
+
+	// TEST
 	if (Keyboard_Get(KEY_INPUT_Z) == 1) mSceneChanger->ChangeScene(eScene_Menu);
 }
 
@@ -26,8 +30,8 @@ void Game::Update()
 void Game::Draw()
 {
 	// TEST
-	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_SCENE_NOW");
+	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_NOW >> F2 >> MENU");
 
 	img->Draw(0, 0, "back");
-//	img->DrawRasterScroll(0, 20, 5., 100., "back");
+	player->Draw();
 }
