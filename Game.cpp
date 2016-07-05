@@ -23,15 +23,15 @@ void Game::Update()
 	player->Update();
 
 	// TEST
-	if (Keyboard_Get(KEY_INPUT_Z) == 1) mSceneChanger->ChangeScene(eScene_Menu);
+	if (Keyboard_Get(KEY_INPUT_F2) == 1) mSceneChanger->ChangeScene(eScene_Menu);
 }
 
 
 void Game::Draw()
 {
-	// TEST
-	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_NOW >> F2 >> MENU");
-
 	img->Draw(0, 0, "back");
 	player->Draw();
+
+	// TEST
+	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_NOW >> F2 >> MENU");
 }

@@ -9,14 +9,14 @@
 #include <memory>
 
 
-//ゲーム画面クラス
+// Game display class
 class Game : public BaseScene
 {
 public:
 	Game::Game(ISceneChanger* changer);
 	~Game();
-	void Update() override;     //更新処理をオーバーライド
-	void Draw() override;       //描画処理をオーバーライド
+	void Update() override;
+	void Draw() override;
 	
 private:
 	std::unique_ptr<Image> img;

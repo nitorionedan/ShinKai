@@ -28,7 +28,7 @@ void Image::List()
 
 	int c = 0;
 
-	printfDx("Imageキーリスト：\n");
+	printfDx("Image key list：\n");
 
 	for (auto key : this->key)
 	{
@@ -37,7 +37,7 @@ void Image::List()
 		c++;
 	}
 
-	printfDx("合計%dファイル", c);
+	printfDx("%d images had loaded.", c);
 }
 
 
@@ -93,7 +93,6 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180.0 * DX_PI * Cycle) * Shake;
 			const int& DestY = Y - Height / 2 + I;
 
-			// 画像の分割描画（縦に１pixずつ）
 			error = DrawRectGraph
 				(
 					DestX, DestY,
@@ -111,7 +110,6 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 			const int& DestX = X - Width / 2 + I;
 			const int& DestY = Y - Height / 2 + std::cos((I + Correction) / 180. * DX_PI * Cycle) * Shake;
 
-			// 画像の分割描画（横に１pixずつ）
 			error = DrawRectGraph
 				(
 					DestX, DestY,
@@ -149,7 +147,7 @@ int Image::GetHandle(std::string key)
 		return this->gh[i];
 	}
 
-	std::string warning = key + "というキーが見当たりません。";
+	std::string warning = key + "key was not found.";
 
 	MessageBox(NULL, warning.c_str(), "NOT FOUND", MB_OK);
 	

@@ -13,6 +13,9 @@ Player::Player()
 	, img(new Image)
 {
 	img->Load("Images/test_player.png", "player");
+	img->Load("Images/test_player.png", "player2");
+	img->List();
+
 	Initialize();
 }
 
