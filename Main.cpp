@@ -66,6 +66,7 @@ void Initialize()
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);											// 画面モード変更後、素材メモリをリセットしない
 	SetWaitVSyncFlag(FALSE);																	// 垂直同期信号を待たない
 	FrameStartTime = GetNowCount();																// 開始時間を設定
+	SetMouseDispFlag(TRUE);
 }
 
 
