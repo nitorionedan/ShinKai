@@ -24,4 +24,5 @@ private:
 
 	std::unique_ptr<Image> img;
 	Vector2D pos;
+	bool isTurn;
 };

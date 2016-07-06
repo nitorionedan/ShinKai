@@ -76,6 +76,10 @@ void DynamicConfig()
 	if (Keyboard_Get(KEY_INPUT_ESCAPE) == 1)	isPlay = false;
 
 	// Change window mode
-	if (Keyboard_Get(KEY_INPUT_F5) == 1)	isFullSc = !isFullSc;
+	if (Keyboard_Get(KEY_INPUT_F5) == 1)
+	{
+		isFullSc = !isFullSc;
+		ChangeWindowMode(isFullSc);
+	}
 }
 // EOF

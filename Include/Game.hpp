@@ -15,12 +15,14 @@ class Game : public BaseScene
 public:
 	Game::Game(ISceneChanger* changer);
 	~Game();
+	void Initialize();
 	void Update() override;
 	void Draw() override;
 	
 private:
 	std::unique_ptr<Image> img;
 	std::shared_ptr<Player> player;
+	bool isPause;
 };
 
 #endif

@@ -18,8 +18,19 @@ Game::~Game()
 }
 
 
+void Game::Initialize()
+{
+	isPause = false;
+}
+
+
 void Game::Update()
 {
+	// Pause
+	if (Keyboard_Get(KEY_INPUT_SPACE) == 1)	isPause = !isPause;
+
+	if (isPause)	return;
+
 	player->Update();
 
 	// TEST
@@ -33,5 +44,5 @@ void Game::Draw()
 	player->Draw();
 
 	// TEST
-	DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_NOW >> F2 >> MENU");
+	//DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_NOW >> F2 >> MENU");
 }
