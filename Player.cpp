@@ -12,6 +12,7 @@ Player::Player()
 	, MAX_SPEED(1.)
 	, img(new Image)
 {
+	img->Load("Images/test_player.png", "test");
 	img->Load("Images/player00.png", "player");
 
 	Initialize();

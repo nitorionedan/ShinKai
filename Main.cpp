@@ -31,7 +31,6 @@ static void Initialize();
 static void DynamicConfig();
 
 
-// プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	Initialize();
@@ -41,29 +40,29 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && isPlay)
 	{
 		FPSMng();
-		Keyboard_Update();										// キー入力状況更新
+		Keyboard_Update();
 		DynamicConfig();
 		sceneMng->Update();
 		sceneMng->Draw();
 	}
-	DxLib_End();												// ＤＸライブラリ使用の終了処理
+	DxLib_End();
 	return 0;
 }
 
 
 void FPSMng()
 {
-	while (GetNowCount() - FrameStartTime < FPS_60) {}		// 1/60 秒まで待つ
-	FrameStartTime = GetNowCount();							// 現在のカウントを保存
+	while (GetNowCount() - FrameStartTime < FPS_60) {}		// wait for 1/60sec
+	FrameStartTime = GetNowCount();							// save now count
 }
 
 
 void Initialize()
 {
-	SetGraphMode(320, 240, 32), ChangeWindowMode(isFullSc), DxLib_Init();						// ウィンドウ初期設定(VGA),DxLib起動
-	SetDrawScreen(DX_SCREEN_BACK);																// 裏画面処理
-	SetMainWindowText("演習");																	// タイトルを設定
-	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);											// 画面モード変更後、素材メモリをリセットしない
+	SetGraphMode(320, 240, 32), ChangeWindowMode(isFullSc), DxLib_Init();
+	SetDrawScreen(DX_SCREEN_BACK);
+	SetMainWindowText("ShinKai");
+	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 	SetWaitVSyncFlag(FALSE);																	// 垂直同期信号を待たない
 	FrameStartTime = GetNowCount();																// 開始時間を設定
 	SetMouseDispFlag(TRUE);
@@ -72,7 +71,7 @@ void Initialize()
 
 void DynamicConfig()
 {
-	// メインループを抜ける
+	// exit main loop
 	if (Keyboard_Get(KEY_INPUT_ESCAPE) == 1)	isPlay = false;
 
 	// Change window mode
