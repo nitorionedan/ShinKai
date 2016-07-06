@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------
 /// @file
-/// @brief    ƒƒCƒ“
-/// @author   –î“`ãÄ•½
+/// @brief    Main
+/// @author   nitorionedan
 ///
-/// @copyright  Copyright 2016 –î“`ãÄ•½
+/// @copyright  Copyright 2016 KITIC
 
 //------------------------------------------------------------------------------
 
@@ -45,6 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		sceneMng->Update();
 		sceneMng->Draw();
 	}
+
 	DxLib_End();
 	return 0;
 }
