@@ -10,7 +10,6 @@ Game::Game(ISceneChanger * changer)
 	, player(new Player)
 	, stage(new Stage)
 {
-	img->Load("Images/test_back.png", "back");
 }
 
 

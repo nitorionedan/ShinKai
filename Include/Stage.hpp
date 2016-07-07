@@ -9,10 +9,12 @@ class Stage
 public:
 	Stage();
 	~Stage();
-	void Initialzie();
+	void Initialize();
 	void Update();
 	void Draw();
 
 private:
 	std::unique_ptr<Image> img;
+	double c_shake;
+	double shake;
 };

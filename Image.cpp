@@ -73,14 +73,14 @@ int Image::DrawRect(const int & DestX, const int & DestY, const int & SrcX, cons
 }
 
 
-int Image::DrawRasterScroll(const int& X, const int& Y, const double& Cycle, const double& Shake, const std::string & Key, const bool& isVertical)
+int Image::DrawRasterScroll(const int& X, const int& Y, const double& Cycle, const double& Shake, const double& Speed, const std::string & Key, const bool& isVertical)
 {
 	if (count == 0)	return -1;
 
 	const int& Hdl = GetHandle(Key);
 
 	int Width = 0, Height = 0;					// Images width & height
-	static int Correction = 0;					// Adjust raster scrole
+	static double Correction = 0.;				// Adjust raster scrole
 	static int error = 0;						// Return only variable
 
 	GetGraphSize(Hdl, &Width, &Height);
@@ -90,7 +90,7 @@ int Image::DrawRasterScroll(const int& X, const int& Y, const double& Cycle, con
 	case true:
 		for (int I = 0; I < Height; ++I)
 		{
-			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180.0 * DX_PI * Cycle) * Shake;
+			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180. * DX_PI * Cycle) * Shake;
 			const int& DestY = Y - Height / 2 + I;
 
 			error = DrawRectGraph
@@ -123,7 +123,7 @@ int Image::DrawRasterScroll(const int& X, const int& Y, const double& Cycle, con
 
 	}
 
-	++Correction;
+	Correction += Speed;
 
 	return error;
 }
