@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------
 /// @file
-/// @brief    ISceneChangerƒNƒ‰ƒX
-/// @author   –î“`ãÄ•½
+/// @brief    ISceneChanger class
+/// @author   nitorionedan
 ///
-/// @copyright  Copyright 2016 –î“`ãÄ•½
+/// @copyright  Copyright 2016 KITIC
 
 //------------------------------------------------------------------------------
 

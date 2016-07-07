@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------
 /// @file
-/// @brief    キーボード入力状態管理関数
-/// @author   矢伝翔平
+/// @brief		Key inputs manegement function
+/// @author		nitorionedan
 ///
-/// @copyright  Copyright 2016 矢伝翔平
+/// @copyright  Copyright 2016 KITIC
 
 //------------------------------------------------------------------------------
 

@@ -6,7 +6,10 @@ Image::Image()	: count(0){}
 
 Image::~Image()
 {
-	if (count != 0)	for (auto& gh : this->gh) DeleteGraph(gh);
+	if (count != 0)
+	{
+		for (auto& gh : this->gh)	DeleteGraph(gh);
+	}
 }
 
 
@@ -28,7 +31,7 @@ void Image::List()
 
 	int c = 0;
 
-	printfDx("Imageキーリスト：\n");
+	printfDx("Image key list：\n");
 
 	for (auto key : this->key)
 	{
@@ -37,7 +40,7 @@ void Image::List()
 		c++;
 	}
 
-	printfDx("合計%dファイル", c);
+	printfDx("%d images had loaded.", c);
 }
 
 
@@ -73,14 +76,18 @@ int Image::DrawRect(const int & DestX, const int & DestY, const int & SrcX, cons
 }
 
 
-int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double Shake, const std::string & Key, bool isVertical)
+int Image::DrawRasterScroll(const int& X, const int& Y, const double& Cycle, const double& Shake, const double& Speed, const std::string & Key, const bool& isVertical)
 {
 	if (count == 0)	return -1;
 
 	const int& Hdl = GetHandle(Key);
 
 	int Width = 0, Height = 0;					// Images width & height
+<<<<<<< HEAD
 	static int Correction = 0;					// Adjust raster scrole
+=======
+	static double Correction = 0.;				// Adjust raster scrole
+>>>>>>> dev
 	static int error = 0;						// Return only variable
 
 	GetGraphSize(Hdl, &Width, &Height);
@@ -90,10 +97,16 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 	case true:
 		for (int I = 0; I < Height; ++I)
 		{
+<<<<<<< HEAD
 			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180.0 * DX_PI * Cycle) * Shake;
 			const int& DestY = Y - Height / 2 + I;
 
 			// 画像の分割描画（縦に１pixずつ）
+=======
+			const int& DestX = X - Width / 2 + std::cos((I + Correction) / 180. * DX_PI * Cycle) * Shake;
+			const int& DestY = Y - Height / 2 + I;
+
+>>>>>>> dev
 			error = DrawRectGraph
 				(
 					DestX, DestY,
@@ -111,7 +124,10 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 			const int& DestX = X - Width / 2 + I;
 			const int& DestY = Y - Height / 2 + std::cos((I + Correction) / 180. * DX_PI * Cycle) * Shake;
 
+<<<<<<< HEAD
 			// 画像の分割描画（横に１pixずつ）
+=======
+>>>>>>> dev
 			error = DrawRectGraph
 				(
 					DestX, DestY,
@@ -125,7 +141,11 @@ int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double S
 
 	}
 
+<<<<<<< HEAD
 	++Correction;
+=======
+	Correction += Speed;
+>>>>>>> dev
 
 	return error;
 }
@@ -149,7 +169,7 @@ int Image::GetHandle(std::string key)
 		return this->gh[i];
 	}
 
-	std::string warning = key + "というキーが見当たりません。";
+	std::string warning = key + "key was not found.";
 
 	MessageBox(NULL, warning.c_str(), "NOT FOUND", MB_OK);
 	

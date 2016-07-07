@@ -11,4 +11,8 @@
 *.ipdb
 *.log
 *.opendb
+<<<<<<< HEAD
 *.hoge
+=======
+*.exp
+>>>>>>> dev

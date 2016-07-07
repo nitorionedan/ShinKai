@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------
 /// @file
-/// @brief    Keyboard.hpp‚ÌŽÀ‘•
-/// @author   –î“`ãÄ•½
+/// @brief    Keyboard.hpp implements
+/// @author   nitorionedan
 ///
-/// @copyright  Copyright 2016 –î“`ãÄ•½
+/// @copyright  Copyright 2016 KITIC
 
 //------------------------------------------------------------------------------
 
