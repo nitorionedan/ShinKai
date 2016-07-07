@@ -5,9 +5,9 @@
 Stage::Stage()
 	: img(new Image)
 {
-	img->Load("Images/test_back.png",	"test");
-	img->Load("Images/sea00.png",		"sea0");
-	img->Load("Images/ground00.png",	"grd0");
+	img->Load("Images/test_back.png", "test");
+	img->Load("Images/sea00.png", "sea0");
+	img->Load("Images/ground00.png", "grd0");
 
 	Initialize();
 }
