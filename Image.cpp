@@ -6,7 +6,10 @@ Image::Image()	: count(0){}
 
 Image::~Image()
 {
-	if (count != 0)	for (auto& gh : this->gh) DeleteGraph(gh);
+	if (count != 0)
+	{
+		for (auto& gh : this->gh)	DeleteGraph(gh);
+	}
 }
 
 

@@ -7,6 +7,8 @@ Stage::Stage()
 {
 	img->Load("Images/test_back.png", "test");
 	img->Load("Images/sea00.png", "sea0");
+	img->Load("Images/ground00.png", "grd0");
+
 	Initialize();
 }
 
@@ -33,7 +35,8 @@ void Stage::Update()
 
 void Stage::Draw()
 {
-	img->DrawRasterScroll(160, 160, 2.5, shake, 0.1, "sea0", false);
+	img->DrawRasterScroll(160, 160, 2.5, shake, 0.3, "sea0");
+	img->Draw(0, 0, "grd0", true);
 }
 
 // EOF
