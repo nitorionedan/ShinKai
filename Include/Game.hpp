@@ -5,6 +5,7 @@
 #include "ISceneChanger.hpp"
 #include "Image.hpp"
 #include "Player.hpp"
+#include "Stage.hpp"
 
 #include <memory>
 
@@ -22,6 +23,7 @@ public:
 private:
 	std::unique_ptr<Image> img;
 	std::shared_ptr<Player> player;
+	std::shared_ptr<Stage> stage;
 	bool isPause;
 };
 

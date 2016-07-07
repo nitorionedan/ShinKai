@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Image.hpp"
+#include <memory>
+
 
 class Stage
 {
@@ -11,4 +14,5 @@ public:
 	void Draw();
 
 private:
+	std::unique_ptr<Image> img;
 };

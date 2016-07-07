@@ -8,6 +8,7 @@ Game::Game(ISceneChanger * changer)
 	: BaseScene(changer)
 	, img(new Image)
 	, player(new Player)
+	, stage(new Stage)
 {
 	img->Load("Images/test_back.png", "back");
 }
@@ -32,6 +33,7 @@ void Game::Update()
 	if (isPause)	return;
 
 	player->Update();
+	stage->Update();
 
 	// TEST
 	if (Keyboard_Get(KEY_INPUT_F2) == 1) mSceneChanger->ChangeScene(eScene_Menu);
@@ -40,7 +42,7 @@ void Game::Update()
 
 void Game::Draw()
 {
-	img->Draw(0, 0, "back");
+	stage->Draw();
 	player->Draw();
 
 	// TEST

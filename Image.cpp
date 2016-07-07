@@ -73,7 +73,7 @@ int Image::DrawRect(const int & DestX, const int & DestY, const int & SrcX, cons
 }
 
 
-int Image::DrawRasterScroll(const int & X, const int & Y, double Cycle, double Shake, const std::string & Key, bool isVertical)
+int Image::DrawRasterScroll(const int& X, const int& Y, const double& Cycle, const double& Shake, const std::string & Key, const bool& isVertical)
 {
 	if (count == 0)	return -1;
 
