@@ -61,7 +61,7 @@ void Player::Move()
 	if (Keyboard_Get(KEY_INPUT_UP) >= 1)	pos.y -= MAX_SPEED;
 
 	// over boundary
-	pos.y = std::max(std::min(pos.y, UNDER_BOUNDARY), 32.);
+	pos.y = std::max(std::min(pos.y, UNDER_BOUNDARY), 48.);
 }
 
 // EOF
