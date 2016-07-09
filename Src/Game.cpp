@@ -44,5 +44,5 @@ void Game::Draw()
 	player->Draw();
 
 	// TEST
-	//DrawFormatString(0, 20, GetColor(0, 255, 0), "GAME_NOW >> F2 >> MENU");
+	DrawFormatString(0, 20, GetColor(0, 0, 0), "GAME_NOW >> F2 >> MENU");
 }
