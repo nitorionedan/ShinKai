@@ -5,6 +5,9 @@
 #undef min
 
 
+const int Player::CONST_TEST;
+
+
 Player::Player()
 	: MASS(10.)
 	, GRAVITY(MASS / 100.)
@@ -12,8 +15,10 @@ Player::Player()
 	, MAX_SPEED(1.)
 	, img(new Image)
 {
-	img->Load("Images/test_player.png", "test");
-	img->Load("Images/player00.png", "player");
+	img->Load("Images/test_player.png",	"test");
+	img->Load("Images/player00.png",	"player");
+//	printfDx("%d", CONST_TEST);
+	printfDx("hello");
 
 	Initialize();
 }
@@ -46,6 +51,9 @@ void Player::Draw()
 
 	// TEST
 	//DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf", pos.y);
+
+	printfDx("hello");
+
 }
 
 

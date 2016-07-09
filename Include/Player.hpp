@@ -19,6 +19,7 @@ private:
 	const double GRAVITY;
 	const double UNDER_BOUNDARY;
 	const double MAX_SPEED;
+	static const int CONST_TEST = 10;
 
 	void Move();
 
