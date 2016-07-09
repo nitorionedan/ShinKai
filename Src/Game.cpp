@@ -1,8 +1,6 @@
-#include "DxLib.h"
-
 #include "Game.hpp"
 #include "Keyboard.hpp"
-
+#include "DxLib.h"
 
 Game::Game(ISceneChanger * changer)
 	: BaseScene(changer)
@@ -10,6 +8,7 @@ Game::Game(ISceneChanger * changer)
 	, player(new Player)
 	, stage(new Stage)
 {
+	printfDx("ok");
 }
 
 

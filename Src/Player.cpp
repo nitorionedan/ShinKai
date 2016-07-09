@@ -17,9 +17,6 @@ Player::Player()
 {
 	img->Load("Images/test_player.png",	"test");
 	img->Load("Images/player00.png",	"player");
-//	printfDx("%d", CONST_TEST);
-	printfDx("hello");
-
 	Initialize();
 }
 
@@ -51,9 +48,6 @@ void Player::Draw()
 
 	// TEST
 	//DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf", pos.y);
-
-	printfDx("hello");
-
 }
 
 
