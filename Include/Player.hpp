@@ -15,11 +15,10 @@ public:
 	void Initialize();
 
 private:
-	const double MASS;
-	const double GRAVITY;
-	const double UNDER_BOUNDARY;
-	const double MAX_SPEED;
-	static const int CONST_TEST = 10;
+	static const double MASS;
+	static const double GRAVITY;
+	static const double UNDER_BOUNDARY;
+	static const double MAX_SPEED;
 
 	void Move();
 

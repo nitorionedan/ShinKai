@@ -1,22 +1,23 @@
 #include "Player.hpp"
 #include "Keyboard.hpp"
 #include <algorithm>
+#include "DxLib.h"
 #undef max
 #undef min
 
 
-const int Player::CONST_TEST;
+const double Player::MASS = 10.;
+const double Player::GRAVITY = (MASS / 100.);
+const double Player::UNDER_BOUNDARY = 224.;
+const double Player::MAX_SPEED = 1.;
 
 
 Player::Player()
-	: MASS(10.)
-	, GRAVITY(MASS / 100.)
-	, UNDER_BOUNDARY(224.)
-	, MAX_SPEED(1.)
-	, img(new Image)
+	: img(new Image)
 {
 	img->Load("Images/test_player.png",	"test");
 	img->Load("Images/player00.png",	"player");
+	
 	Initialize();
 }
 

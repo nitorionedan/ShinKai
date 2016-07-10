@@ -15,9 +15,10 @@ public:
 	Image();
 	~Image();
 
+	static void ChengeIsUpdate();
+
 	int Load(const TCHAR* FNAME, std::string key);
 	void List();
-
 	int Draw(const int& X, const int& Y, std::string key, int TransFlag = 0);
 	int DrawRota(const int& X, const int& Y, const double& ExRate, const double& Angle, std::string key, int TransFlag = 0, int TurnFlag = 0);
 	int DrawRect(const int& DestX, const int& DestY,
@@ -42,6 +43,7 @@ public:
 private:
 	int GetHandle(std::string key);
 
+	static bool is_sUpdate;
 	std::vector<std::string> key;	// キーネーム
 	std::vector<int> gh;			// グラフィックハンドル
 	int count;

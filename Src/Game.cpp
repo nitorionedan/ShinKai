@@ -8,7 +8,6 @@ Game::Game(ISceneChanger * changer)
 	, player(new Player)
 	, stage(new Stage)
 {
-	printfDx("ok");
 }
 
 
@@ -26,7 +25,11 @@ void Game::Initialize()
 void Game::Update()
 {
 	// Pause
-	if (Keyboard_Get(KEY_INPUT_SPACE) == 1)	isPause = !isPause;
+	if (Keyboard_Get(KEY_INPUT_SPACE) == 1)
+	{
+		isPause = !isPause;
+		Image::ChengeIsUpdate();
+	}
 
 	if (isPause)	return;
 
