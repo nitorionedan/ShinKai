@@ -6,7 +6,7 @@
 #include "Image.hpp"
 #include "Player.hpp"
 #include "Stage.hpp"
-
+#include "Creature.hpp"
 #include <memory>
 
 
@@ -24,6 +24,7 @@ private:
 	std::unique_ptr<Image> img;
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Stage> stage;
+//	std::shared_ptr<Creature> creature;
 	bool isPause;
 };
 

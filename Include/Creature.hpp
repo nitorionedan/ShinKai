@@ -1,14 +1,30 @@
 #pragma once
 
 
+#include "DefaultFish.hpp"
+#include <memory>
+
+
+enum class eCreatureType
+{
+	defaFish,
+
+	None,
+};
+
+
 class Creature
 {
 public:
-	explicit Creature(int Type, int move_pattern);
+	Creature();
+	~Creature();
 	void Initialize();
 	void Update();
 	void Draw();
+	void Create(eCreatureType type);
 
 private:
-	Creature();
+
+	std::unique_ptr<DefaultFish> defaFish;
+	eCreatureType type;
 };

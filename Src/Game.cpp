@@ -7,6 +7,7 @@ Game::Game(ISceneChanger * changer)
 	, img(new Image)
 	, player(new Player)
 	, stage(new Stage)
+//	, creature(new Creature)
 {
 }
 

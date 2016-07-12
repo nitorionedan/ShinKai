@@ -52,7 +52,7 @@ void Image::List()
 }
 
 
-int Image::Draw(const int& X, const int& Y, std::string key, int TransFlag)
+int Image::Draw(const int& X, const int& Y, const std::string& key, int TransFlag)
 {
 	if (count == 0)	return -1;
 
