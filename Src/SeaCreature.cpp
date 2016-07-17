@@ -16,7 +16,7 @@ SeaCreature::SeaCreature()
 	creature.push_back( (Creature*)(new DefaultFish(0, 0, 0)) );
 	creature.push_back( (Creature*)(new DefaultFish(1, 0, 0)) );
 	creature.push_back( (Creature*)(new DefaultFish(2, 0, 0)) );
-	creature.push_back((Creature*)(new NullCreature));
+	creature.push_back( (Creature*)(new NullCreature) );
 
 	Initialize();
 
@@ -81,7 +81,10 @@ void SeaCreature::Create(eCreatureType type, int moveType, int colorType, int fi
 {
 	switch (type)
 	{
-	case eCreatureType::defaFish:	creature.push_back( (Creature*)(new DefaultFish(moveType, colorType, firstPos)) );	break;
+	case eCreatureType::defaFish:
+		//creature.push_back( (Creature*)(new DefaultFish(moveType, colorType, firstPos)) );
+		creature.emplace(std::begin(creature), (Creature*)(new DefaultFish(moveType, colorType, firstPos)) );
+		break;
 	case eCreatureType::None:		creature.push_back( (Creature*)(new NullCreature) );			break;
 	
 	default:	MessageBox(NULL, ERROR, "FAILED TO CREATE", MB_OK);	break;
@@ -106,9 +109,7 @@ void SeaCreature::SearchOverBounday()
 		if (IS_OB == false) continue;
 
 		delete (*i);
-//		creature.erase( std::remove(std::begin(creature), std::end(creature), *i), std::end(creature) );
-		creature.erase( std::remove(creature.begin(), creature.end(), *i), creature.end() );
-
+		creature.erase( std::remove(std::begin(creature), std::end(creature), *i), std::end(creature) );
 
 		printfDx("deleted\n");
 	}
