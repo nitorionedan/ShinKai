@@ -16,6 +16,16 @@
 #include <string>
 #include <vector>
 
+// TODO : Be implement.
+/*
+enum class eColor
+{
+	Red		= GetColor(255, 0, 0),
+	Green	= GetColor(0, 255, 0),
+	Blue	= GetColor(0, 0, 255),
+};
+*/
+
 
 class Image
 {

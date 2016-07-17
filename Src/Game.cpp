@@ -7,7 +7,7 @@ Game::Game(ISceneChanger * changer)
 	, img(new Image)
 	, player(new Player)
 	, stage(new Stage)
-//	, creature(new Creature)
+	, seaCre(new SeaCreature)
 {
 }
 
@@ -36,17 +36,22 @@ void Game::Update()
 
 	player->Update();
 	stage->Update();
+	seaCre->Update();
 
 	// TEST
 	if (Keyboard_Get(KEY_INPUT_F2) == 1) mSceneChanger->ChangeScene(eScene_Menu);
+	if (Keyboard_Get(KEY_INPUT_O) == 1) seaCre->Create(eCreatureType::defaFish, 0, 0, 0);
 }
 
 
 void Game::Draw()
 {
 	stage->Draw();
+	seaCre->Draw();
 	player->Draw();
 
 	// TEST
-	DrawFormatString(0, 20, GetColor(0, 0, 0), "GAME_NOW >> F2 >> MENU");
+	//DrawFormatString(0, 20, GetColor(0, 0, 0), "GAME_NOW >> F2 >> MENU");
 }
+
+// EOF
