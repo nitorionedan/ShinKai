@@ -1,6 +1,9 @@
 #include "Image.hpp"
 
 
+bool Image::is_sUpdate = true;
+
+
 Image::Image()	: count(0){}
 
 
@@ -10,6 +13,11 @@ Image::~Image()
 	{
 		for (auto& gh : this->gh)	DeleteGraph(gh);
 	}
+}
+
+
+void Image::ChengeIsUpdate(){
+	is_sUpdate = !is_sUpdate;
 }
 
 
@@ -44,7 +52,7 @@ void Image::List()
 }
 
 
-int Image::Draw(const int& X, const int& Y, std::string key, int TransFlag)
+int Image::Draw(const int& X, const int& Y, const std::string& key, int TransFlag)
 {
 	if (count == 0)	return -1;
 
@@ -142,8 +150,14 @@ int Image::DrawRasterScroll(const int& X, const int& Y, const double& Cycle, con
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	++Correction;
 =======
+=======
+	// If is_sUpdate is FALSE, it does'nt raster scroll.
+	if (!is_sUpdate)	return error;
+
+>>>>>>> dev
 	Correction += Speed;
 >>>>>>> dev
 
@@ -169,7 +183,7 @@ int Image::GetHandle(std::string key)
 		return this->gh[i];
 	}
 
-	std::string warning = key + "key was not found.";
+	std::string warning = key + " key was not found.";
 
 	MessageBox(NULL, warning.c_str(), "NOT FOUND", MB_OK);
 	

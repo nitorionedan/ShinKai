@@ -1,20 +1,23 @@
 #include "Player.hpp"
 #include "Keyboard.hpp"
 #include <algorithm>
+#include "DxLib.h"
 #undef max
 #undef min
 
 
-Player::Player()
-	: MASS(10.)
-	, GRAVITY(MASS / 100.)
-	, UNDER_BOUNDARY(224.)
-	, MAX_SPEED(1.)
-	, img(new Image)
-{
-	img->Load("Images/test_player.png", "test");
-	img->Load("Images/player00.png", "player");
+const double Player::MASS = 10.;
+const double Player::GRAVITY = (MASS / 100.);
+const double Player::UNDER_BOUNDARY = 224.;
+const double Player::MAX_SPEED = 1.;
 
+
+Player::Player()
+	: img(new Image)
+{
+	img->Load("Images/test_player.png",	"test");
+	img->Load("Images/player00.png",	"player");
+	
 	Initialize();
 }
 
@@ -61,7 +64,7 @@ void Player::Move()
 	if (Keyboard_Get(KEY_INPUT_UP) >= 1)	pos.y -= MAX_SPEED;
 
 	// over boundary
-	pos.y = std::max(std::min(pos.y, UNDER_BOUNDARY), 32.);
+	pos.y = std::max(std::min(pos.y, UNDER_BOUNDARY), 48.);
 }
 
 // EOF
