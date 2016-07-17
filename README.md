@@ -13,4 +13,4 @@ I'm want to create such a game :D<br />
 
 <h5>英語勉強中です！＞＜</h5> ← Please translate by yourself! HAHAHA!
 
-<a href="http://www.htmq.com/html/a.shtml">Instructions is here:)</a><br>
+<a href="http://www.htmq.com/html/a.shtml">Instructions are here:)</a><br>
