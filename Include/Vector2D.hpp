@@ -19,7 +19,20 @@ public:
 		const double& X1, const double& Y1, const double& X2, const double& Y2);
 	static bool RectanglePointCollision(const double& MyX, const double& MyY, const double& Width, const double& Height, const double& TarX, const double& TarY);
 
-	double x, y;
+	Vector2D& Vector2D::operator=(const Vector2D& obj);
+	Vector2D& operator+=(const Vector2D& obj);
+	Vector2D& operator-=(const Vector2D& obj);
+	Vector2D& operator*=(const Vector2D& obj);
+	Vector2D& operator/=(const Vector2D& obj);
+	Vector2D operator+();
+	Vector2D operator-();
 
-private:
+	double x, y;
 };
+
+
+Vector2D operator+(const Vector2D& v1, const Vector2D& v2);
+
+Vector2D operator-(const Vector2D& v1, const Vector2D& v2);
+
+// EOF

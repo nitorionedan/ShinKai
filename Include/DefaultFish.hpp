@@ -11,6 +11,7 @@ class DefaultFish : public Creature
 public:
 	// @param[in]	pattern	
 	explicit DefaultFish(int pattern, int colorType, int pos);
+	~DefaultFish();
 	void Update() override;
 	void Draw() override;
 	bool IsExist() override { return isExist; }
@@ -29,4 +30,5 @@ private:
 	const int PATTERN, C_PATTERN, F_POS;
 
 	std::unique_ptr<Image> img;
+	Vector2D vMove;
 };

@@ -46,12 +46,13 @@ void Vector2D::BorderStop(double* pos, const double MIN, const double MAX)
 {
 	if(MAX <= MIN)
 	{
-		printfDx("制限値エラー\n");
+		printfDx("Vector2D::制限値エラー\n");
 		return;
 	}
 
 	*pos = std::min(MAX, std::max(MIN, *pos));
 }
+
 
 void Vector2D::AddVecAngele(double * PosX, double * PosY, const double& angle, const double& force)
 {
@@ -91,3 +92,76 @@ bool Vector2D::RectanglePointCollision(const double & MyX, const double & MyY, c
 
 	return isHit;
 }
+
+
+Vector2D& Vector2D::operator=(const Vector2D& obj)
+{
+	this->x = obj.x;
+	this->y = obj.y;
+	return *this;
+}
+
+
+Vector2D Vector2D::operator+()
+{
+	return *this;
+}
+
+
+Vector2D Vector2D::operator-()
+{
+	return Vector2D(-x, -y);
+}
+
+
+Vector2D& Vector2D::operator+=(const Vector2D& obj)
+{
+	this->x += obj.x;
+	this->y += obj.y;
+	return *this;
+}
+
+
+Vector2D& Vector2D::operator-=(const Vector2D& obj)
+{
+	this->x -= obj.x;
+	this->y -= obj.y;
+	return *this;
+}
+
+
+Vector2D& Vector2D::operator*=(const Vector2D& obj)
+{
+	this->x *= obj.x;
+	this->y *= obj.y;
+	return *this;
+}
+
+
+Vector2D& Vector2D::operator/=(const Vector2D& obj)
+{
+	this->x /= obj.x;
+	this->y /= obj.y;
+	return *this;
+}
+
+
+Vector2D operator+(const Vector2D& v1, const Vector2D& v2)
+{
+	Vector2D tmp;
+	tmp.x = v1.x + v2.x;
+	tmp.y = v1.y + v2.y;
+	return tmp;
+}
+
+
+Vector2D operator-(const Vector2D& v1, const Vector2D& v2)
+{
+	Vector2D tmp;
+	tmp.x = v1.x - v2.x;
+	tmp.y = v1.y - v2.y;
+	return tmp;
+}
+
+
+// EOF

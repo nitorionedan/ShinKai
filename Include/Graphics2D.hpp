@@ -56,11 +56,6 @@ public:
 	// @attention	この関数は最後に輝度を（255, 255, 255）に設定している
 	void DrawColorGraph(const int& X, const int& Y, const double& EXRATE, const int &Gr_Handle, int R, int G, int B);
 
-	// @brief					コマアニメを描画
-	// @param[in]	ANIME_SPEED	コマを送る速さ（１枚毎のフレーム数）
-	// @attention				Graphics2Dクラスの引数付きコンストラクタで格納されたオブジェクトのみ使用可能
-	void DrawAnimation(const double& X, const double& Y, const double& EXRATE, const double& ANGLE, const int& ANIME_SPEED);
-
 	// @brief					指定した時間だけ描画
 	// @param[in]	X, Y		描画座標
 	// @param[in]	EXRATE		描画倍率
@@ -83,7 +78,7 @@ private:
 // @pram[in]	TIME_FRAME	１コマの表示時間（フレーム数）
 // @pram[in]	Gr_Handle[]	画像ハンドル配列
 // @attention				配列の総合計を超えた値を入れないでください。倍率は２倍にされています。
-void DrawAnime(const double& PosX, const double& PosY, const double& ANGLE, const int& TIME, const int& FRAME_NUM, const int& TIME_FRAME, int Gr_Handle[]);
+void DrawAnime(const double& PosX, const double& PosY, const double& ExRate, const double& ANGLE, const int& TIME, const int& FRAME_NUM, const int& TIME_FRAME, int Gr_Handle[], const bool& TurnFlag = 0);
 
 
 // @biref					時間を全て同じにするためのアニメーション再生関数
@@ -93,7 +88,7 @@ void DrawAnime(const double& PosX, const double& PosY, const double& ANGLE, cons
 // @pram[in]	TIME_FRAME	１コマの表示時間（フレーム数）
 // @pram[in]	Gr_Handle[]	画像ハンドル配列
 // @attention				配列の総合計を超えた値を入れないでください。倍率は２倍にされています。
-void DrawAnime(const double& PosX, const double& PosY, const double& ANGLE, const int& FRAME_NUM, const int& TIME_FRAME, int Gr_Handle[]);
+void DrawAnime(const double& PosX, const double& PosY, const double& ExRate, const double& ANGLE, const int& FRAME_NUM, const int& TIME_FRAME, int Gr_Handle[], const bool& TurnFlag = 0);
 
 
 /* メモ */

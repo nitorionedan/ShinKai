@@ -32,7 +32,7 @@ private:
 	// Left, Right, Top and Bottom boundary
 	static const double L_BOUNDARY, R_BOUNDARY, T_BOUNDARY, B_BOUNDARY;
 
-	std::vector<Creature*> creature;
+	std::vector< std::shared_ptr<Creature> > creature;
 	std::unique_ptr<DefaultFish> defaFish;
 	eCreatureType type;
 	int elapsedTime;
