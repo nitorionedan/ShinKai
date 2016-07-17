@@ -12,7 +12,7 @@
 #include "DxLib.h"
 
 #include "Graphics2D.hpp"
-#include "Keyboard.hpp"
+#include "CKeyboard.hpp"
 #include "Game.hpp"
 
 #include <cmath>

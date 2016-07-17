@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 #include "DxLib.h"
 
-#include "Keyboard.hpp"
+#include "CKeyboard.hpp"
 
 
 Menu::Menu(ISceneChanger * changer)

@@ -1,7 +1,7 @@
 #include "DxLib.h"
 
 #include "SceneMng.hpp"
-#include "Keyboard.hpp"
+#include "CKeyboard.hpp"
 
 #include "Game.hpp"
 #include "Menu.hpp"

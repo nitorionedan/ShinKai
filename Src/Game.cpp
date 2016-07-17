@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "Keyboard.hpp"
+#include "CKeyboard.hpp"
 #include "DxLib.h"
 
 Game::Game(ISceneChanger * changer)

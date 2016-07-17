@@ -1,5 +1,5 @@
 #include "Player.hpp"
-#include "Keyboard.hpp"
+#include "CKeyboard.hpp"
 #include "DxLib.h"
 #include "Graphics2D.hpp"
 #include <algorithm>
