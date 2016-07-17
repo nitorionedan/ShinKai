@@ -13,12 +13,24 @@ DefaultFish::DefaultFish(int pattern, int colorType, int pos)
 }
 
 
+DefaultFish::~DefaultFish()
+{
+}
+
+
 void DefaultFish::Initialize()
 {
 	isExist = true;
 	isDead = false;
 	isOB = false;
 	isTurn = false;
+
+	switch (PATTERN)
+	{
+	case 0:		vMove.SetVecor2D(0.1, 0.);	break;
+	case 1:		vMove.SetVecor2D(0.5, 0.);	break;
+	default:	vMove.SetVecor2D(0.1, 0.);	break;
+	}
 
 	switch(F_POS)
 	{
@@ -48,26 +60,28 @@ void DefaultFish::Draw()
 	default:	break;
 	}
 
-	DrawFormatString(pos.x, pos.y, GetColor(0, 0, 0), "%d", PATTERN);
+	// TEST
+//	DrawFormatString(pos.x, pos.y, GetColor(0, 0, 0), "%d", PATTERN);
 }
 
 
 void DefaultFish::Move0(){
-	pos.x += (0.1, 0.5);
+	pos.x += vMove.x;
 	isTurn = true;
 }
 
 
 void DefaultFish::Move1()
 {
-	pos.x -= (0.05, 0.5);
+	pos.x += vMove.x;
 	isTurn = false;
 }
 
 
 void DefaultFish::Move2()
 {
-	pos.x -= (0.05, 1);
+
+
 	isTurn = false;
 }
 

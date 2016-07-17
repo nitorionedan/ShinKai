@@ -15,8 +15,8 @@ const double Player::MAX_SPEED = 1.;
 Player::Player()
 	: img(new Image)
 {
-	img->Load("Images/test_player.png",	"test");
 	img->Load("Images/player00.png",	"player");
+	LoadDivGraph("Images/player01.png", 4, 2, 2, 36, 28, gh_player);
 	
 	Initialize();
 }
@@ -24,22 +24,24 @@ Player::Player()
 
 Player::~Player()
 {
+	for (auto& i : gh_player)	DeleteGraph(i);
 }
 
 
 void Player::Initialize()
 {
-	pos.SetVecor2D(160., 120.);
+	pos   = Vector2D(160., 120.);
+	vMove = Vector2D(0., 0.);
 	isTurn = false;
 }
 
 
 void Player::Update()
 {
-	if (Keyboard_Get(KEY_INPUT_RIGHT) == 1)	isTurn = false;
-	if (Keyboard_Get(KEY_INPUT_LEFT) == 1)	isTurn = true;
-
 	Move();
+
+	if (vMove.x > 0)	isTurn = false;
+	if (vMove.x < 0)	isTurn = true;
 }
 
 
@@ -58,10 +60,14 @@ void Player::Move()
 	pos.y += GRAVITY;
 
 	// moving
-	if (Keyboard_Get(KEY_INPUT_RIGHT) >= 1)	pos.x += MAX_SPEED;
-	if (Keyboard_Get(KEY_INPUT_LEFT) >= 1)	pos.x -= MAX_SPEED;
-	if (Keyboard_Get(KEY_INPUT_DOWN) >= 1)	pos.y += MAX_SPEED;
-	if (Keyboard_Get(KEY_INPUT_UP) >= 1)	pos.y -= MAX_SPEED;
+	vMove.SetZero();
+	if (Keyboard_Get(KEY_INPUT_RIGHT) >= 1)	vMove.x = MAX_SPEED;
+	if (Keyboard_Get(KEY_INPUT_LEFT) >= 1)	vMove.x = -MAX_SPEED;
+	if (Keyboard_Get(KEY_INPUT_DOWN) >= 1)	vMove.y = MAX_SPEED;
+	if (Keyboard_Get(KEY_INPUT_UP) >= 1)	vMove.y = -MAX_SPEED;
+
+	// add force
+	pos += vMove;
 
 	// over boundary
 	pos.y = std::max(std::min(pos.y, UNDER_BOUNDARY), 48.);

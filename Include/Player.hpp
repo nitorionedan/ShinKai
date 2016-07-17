@@ -23,6 +23,7 @@ private:
 	void Move();
 
 	std::unique_ptr<Image> img;
-	Vector2D pos;
+	Vector2D pos, vMove;
+	int gh_player[4];
 	bool isTurn;
 };
