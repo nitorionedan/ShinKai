@@ -1,7 +1,8 @@
 #include "Player.hpp"
 #include "Keyboard.hpp"
-#include <algorithm>
 #include "DxLib.h"
+#include "Graphics2D.hpp"
+#include <algorithm>
 #undef max
 #undef min
 
@@ -15,7 +16,7 @@ const double Player::MAX_SPEED = 1.;
 Player::Player()
 	: img(new Image)
 {
-	img->Load("Images/player00.png",	"player");
+	img->Load("Images/player00.png", "player");
 	LoadDivGraph("Images/player01.png", 4, 2, 2, 36, 28, gh_player);
 	
 	Initialize();
@@ -32,12 +33,15 @@ void Player::Initialize()
 {
 	pos   = Vector2D(160., 120.);
 	vMove = Vector2D(0., 0.);
+	elapsedTime = 0;
 	isTurn = false;
 }
 
 
 void Player::Update()
 {
+	elapsedTime++;
+
 	Move();
 
 	if (vMove.x > 0)	isTurn = false;
@@ -47,7 +51,7 @@ void Player::Update()
 
 void Player::Draw()
 {
-	img->DrawRota(pos.x, pos.y, 1., 0., "player", true, isTurn);
+	DrawAnime(pos.x, pos.y, 1., 0., elapsedTime, sizeof(gh_player) / sizeof(gh_player[0]), 6, gh_player, isTurn);
 
 	// TEST
 	//DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf", pos.y);

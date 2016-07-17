@@ -25,5 +25,6 @@ private:
 	std::unique_ptr<Image> img;
 	Vector2D pos, vMove;
 	int gh_player[4];
+	int elapsedTime;
 	bool isTurn;
 };

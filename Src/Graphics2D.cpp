@@ -139,33 +139,7 @@ void Graphics2D::DrawColorGraph(const int& X, const int& Y, const double& Exrate
 }
 
 
-// é∏îsèoóàëπÇ»Ç¢Å`Å`Å`Å`
-void Graphics2D::DrawAnimation(const double& X, const double& Y, const double& EXRATE, const double& ANGLE, const int & ANIME_SPEED)
-{
-	if (gh != nullptr){
-		printfDx("ì«Ç›çûÇ›ÉGÉâÅ[(G2D)\n");	return;
-	}
-	const int& ALL_NUM = ANIME_SPEED * FRAME_NUM;
-
-	for (int i = 0; i < FRAME_NUM; i++)
-	{
-		for (int j = 0; j < ALL_NUM; j++)
-		{
-			if (count >= j && count <= j + (j * ANIME_SPEED))
-			{
-				DrawRotaGraph(X, Y, EXRATE, ANGLE, gh[i], true);
-				break;
-			}
-		}
-	}
-
-	count++;
-
-	if (count == ALL_NUM)	count = 0;
-}
-
-
-void DrawAnime(const double & PosX, const double & PosY, const double & ANGLE, const int & TIME, const int& FRAME_NUM, const int & TIME_FRAME, int Gr_Handle[])
+void DrawAnime(const double & PosX, const double & PosY, const double& ExRate, const double & ANGLE, const int & TIME, const int& FRAME_NUM, const int & TIME_FRAME, int Gr_Handle[], const bool& TurnFlag)
 {
 	// ó]ÇËÇÇ‡Ç∆ÇﬂÇÈÇΩÇﬂÅAÇPÇë´ÇµÇƒí≤êÆ
 	const int& SUM_FRAME_TIME = (FRAME_NUM * TIME_FRAME + 1);
@@ -177,13 +151,13 @@ void DrawAnime(const double & PosX, const double & PosY, const double & ANGLE, c
 									TIME % SUM_FRAME_TIME > TIME_FRAME + (j * TIME_FRAME) );
 		if (IS_PLAYTIME)	continue;
 
-		DrawRotaGraph(PosX, PosY, 2.0, ANGLE, Gr_Handle[j], true);
+		DrawRotaGraph(PosX, PosY, ExRate, ANGLE, Gr_Handle[j], true, TurnFlag);
 		break;
 	}
 }
 
 
-void DrawAnime(const double & PosX, const double & PosY, const double & ANGLE, const int & FRAME_NUM, const int & TIME_FRAME, int Gr_Handle[])
+void DrawAnime(const double & PosX, const double & PosY, const double& ExRate, const double & ANGLE, const int & FRAME_NUM, const int & TIME_FRAME, int Gr_Handle[], const bool& TurnFlag)
 {
 	// ó]ÇËÇÇ‡Ç∆ÇﬂÇÈÇΩÇﬂÅAÇPÇë´ÇµÇƒí≤êÆ
 	const int& SUM_FRAME_TIME = (FRAME_NUM * TIME_FRAME + 1);
@@ -198,7 +172,7 @@ void DrawAnime(const double & PosX, const double & PosY, const double & ANGLE, c
 									aniTime % SUM_FRAME_TIME > TIME_FRAME + (j * TIME_FRAME) );
 		if (IS_PLAYTIME)	continue;
 
-		DrawRotaGraph(PosX, PosY, 2.0, ANGLE, Gr_Handle[j], true);
+		DrawRotaGraph(PosX, PosY, ExRate, ANGLE, Gr_Handle[j], true, TurnFlag);
 
 		break;
 	}
