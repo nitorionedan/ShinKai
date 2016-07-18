@@ -8,22 +8,21 @@
 class Player
 {
 public:
-	Player();
+	Player(int Mass, int UnderBoundary, int MaxSpeed);
 	~Player();
 	void Update();
 	void Draw();
 	void Initialize();
 
 private:
-	static const double MASS;
-	static const double GRAVITY;
-	static const double UNDER_BOUNDARY;
-	static const double MAX_SPEED;
-
+	Player();
 	void Move();
+
+	const double UNDER_BOUNDARY;
 
 	std::unique_ptr<Image> img;
 	Vector2D pos, vMove;
+	double maxSpeed, mass, gravity;
 	int gh_player[4];
 	int elapsedTime;
 	bool isTurn;
