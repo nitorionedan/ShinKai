@@ -7,7 +7,7 @@
 #undef min
 
 
-Player::Player(int Mass, int UnderBoundary, int MaxSpeed)
+Player::Player()
 	: UNDER_BOUNDARY(224.)
 	, img(new Image)
 {
@@ -30,13 +30,6 @@ void Player::Initialize()
 	vMove = Vector2D(0., 0.);
 	elapsedTime = 0;
 	isTurn = false;
-
-	/*
-	FILE* fp;
-	fopen_s(&fp, "Src/PlayerStatus.csv", "rb");
-	fclose(fp);
-	*/
-
 	
 	{
 		FILE* fp;
@@ -47,7 +40,7 @@ void Player::Initialize()
 		
 		for (auto& i : buf)	i = 0;
 
-		fopen_s(&fp, "Src/PlayerStatus.csv", "rb");
+		fopen_s(&fp, "Resource/PlayerStatus.csv", "rb");
 		
 		while (fgetc(fp) != '\n');
 
@@ -95,11 +88,7 @@ void Player::Initialize()
 		fclose(fp);
 	}
 
-//	mass = 10.;
-	printfDx("mass = %lf\n", mass);
-	printfDx("maxSpeed = %lf\n", maxSpeed);
 	gravity = (mass / 100.);
-//	maxSpeed = 1.;
 }
 
 

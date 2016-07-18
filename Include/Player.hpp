@@ -8,14 +8,13 @@
 class Player
 {
 public:
-	Player(int Mass, int UnderBoundary, int MaxSpeed);
+	Player();
 	~Player();
 	void Update();
 	void Draw();
 	void Initialize();
 
 private:
-	Player();
 	void Move();
 
 	const double UNDER_BOUNDARY;

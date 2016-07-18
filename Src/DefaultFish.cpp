@@ -1,3 +1,10 @@
+/*
+
+‚­‚»IÝŒv‚ðŽ¸”s‚µ‚½I‰÷‚µ‚¢‚Å‚·„ƒ
+
+*/
+
+
 #include "DefaultFish.hpp"
 
 
@@ -20,6 +27,7 @@ DefaultFish::~DefaultFish()
 
 void DefaultFish::Initialize()
 {
+	// shared variables
 	isExist = true;
 	isDead = false;
 	isOB = false;
@@ -27,21 +35,29 @@ void DefaultFish::Initialize()
 
 	switch (PATTERN)
 	{
-	case 0:		vMove.SetVecor2D(0.1, 0.);	break;
-	case 1:		vMove.SetVecor2D(0.5, 0.);	break;
-	default:	vMove.SetVecor2D(0.1, 0.);	break;
+	case 0:		vMove = Vector2D(0.1, 0.);	break;
+	case 1:		vMove = Vector2D(-0.1, 0.);	break;
+	case 2:		vMove = Vector2D(0.5, 0.);	break;
+	case 3:		vMove = Vector2D(-0.5, 0.);	break;
+	case 4:		vMove = Vector2D(0.1, 0.05);	break;
+	case 5:		vMove = Vector2D(-0.1, 0.05);	break;
+	default:	vMove = Vector2D(0.1, 0.);	break;
 	}
 
 	switch(F_POS)
 	{
-	case 0:	pos.SetVecor2D(160., 120.);	break;
+	case 0:	pos = Vector2D(160., 120.);	break;
 	default:	break;
 	}
+
+	if (vMove.x > 0)	isTurn = true;
+	if (vMove.x < 0)	isTurn = false;
 }
 
 
 void DefaultFish::Update()
 {
+	/*
 	switch (PATTERN)
 	{
 	case 0:	Move0();	break;
@@ -49,6 +65,12 @@ void DefaultFish::Update()
 	case 2: Move2();	break;
 	default:			break;
 	}
+	*/
+
+	Move0();
+
+	if (vMove.x > 0)	isTurn = true;
+	if (vMove.x < 0)	isTurn = false;
 }
 
 
@@ -66,23 +88,19 @@ void DefaultFish::Draw()
 
 
 void DefaultFish::Move0(){
-	pos.x += vMove.x;
-	isTurn = true;
+	pos += vMove;
 }
 
 
 void DefaultFish::Move1()
 {
-	pos.x += vMove.x;
-	isTurn = false;
+	pos += vMove;
 }
 
 
 void DefaultFish::Move2()
 {
-
-
-	isTurn = false;
+	pos += vMove;
 }
 
 

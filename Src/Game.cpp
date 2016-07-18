@@ -6,7 +6,7 @@
 Game::Game(ISceneChanger * changer)
 	: BaseScene(changer)
 	, img(new Image)
-	, player(new Player(10., 224., 1.))
+	, player(new Player)
 	, stage(new Stage)
 	, seaCre(new SeaCreature)
 {
@@ -42,7 +42,7 @@ void Game::Update()
 
 	// TEST
 	if (Keyboard::Instance()->GetDown(KEY_INPUT_F2) == 1) mSceneChanger->ChangeScene(eScene_Menu);
-	if (Keyboard::Instance()->GetDown(KEY_INPUT_O) == 1) seaCre->Create(eCreatureType::defaFish, 0, 0, 0);
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_O) == 1) seaCre->Create(eCreatureType::defaFish, GetRand(5), 0, 0);
 }
 
 

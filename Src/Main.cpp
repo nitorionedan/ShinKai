@@ -7,12 +7,12 @@
 
 //------------------------------------------------------------------------------
 
-#include "DxLib.h"
-
 #include "Keyboard.hpp"
 #include "SceneMng.hpp"
 
 #include <memory>
+#include <random>
+#include <Dxlib.h>
 
 
 static int FrameStartTime;
@@ -67,6 +67,10 @@ void Initialize()
 	SetWaitVSyncFlag(FALSE);																	// ‚’¼“¯ŠúM†‚ğ‘Ò‚½‚È‚¢
 	FrameStartTime = GetNowCount();																// ŠJnŠÔ‚ğİ’è
 	SetMouseDispFlag(TRUE);
+
+	// random
+	std::random_device rnd;
+	SRand(rnd());
 }
 
 
