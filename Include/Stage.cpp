@@ -5,10 +5,9 @@
 Stage::Stage()
 	: img(new Image)
 	, sound(new Sound)
+	, field((FieldTask*)(new Field(true, true, false, false, eBackType::Normal, eBackMoveType::Wave_Level1)) ) 
 {
-	img->Load("Images/test_back.png",	"test");
-	img->Load("Images/sea00.png",		"sea0");
-	img->Load("Images/sea01.png",		"sea1");
+	img->Load("Images/sea00.png",		"sea");
 	img->Load("Images/ground00.png",	"grd0");
 	img->Load("Images/sky00.png",		"sky0");
 	sound->Load("Sounds/kimeraii.mp3", "bgm0");
@@ -24,26 +23,38 @@ Stage::~Stage()
 
 void Stage::Initialize()
 {
-	c_shake = 0;
-	shake = 0;
-
 	sound->PlayMem("bgm0", DX_PLAYTYPE_LOOP);
+	c_alpha = 0;
 }
 
 
 void Stage::Update()
 {
-	c_shake += 0.01;
+	c_alpha += 1;
+	if (c_alpha > 255)	c_alpha = 255;
 
-	shake = std::sin(c_shake) * 10;
+	field->Update();
 }
 
 
 void Stage::Draw()
 {
-	img->Draw(0, 0, "sky0");
-	img->DrawRasterScroll(160, 160, 2.5, shake, 0.3, "sea1", false);
-	img->Draw(0, 0, "grd0", true);
+	// Sky
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
+	if ( field->HasSky() )	img->Draw(0, 0, "sky0");
+
+	// Back
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 - c_alpha);
+	img->Draw(0, 0, "sea");
+
+	// Sea
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	field->Draw();
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
+
+	// Ground
+	if( field->HasGround() )	img->Draw(0, 0, "grd0", true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 // EOF

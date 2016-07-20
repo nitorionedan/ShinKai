@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 #include "DxLib.h"
 
-#include "CKeyboard.hpp"
+#include "Keyboard.hpp"
 
 
 Menu::Menu(ISceneChanger * changer)
@@ -17,7 +17,7 @@ Menu::~Menu()
 
 void Menu::Update()
 {
-	if (Keyboard_Get(KEY_INPUT_Z) == 1) mSceneChanger->ChangeScene(eScene_Game);
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_F2) == 1) mSceneChanger->ChangeScene(eScene_Game);
 }
 
 

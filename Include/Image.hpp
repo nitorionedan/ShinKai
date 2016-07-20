@@ -53,10 +53,9 @@ public:
 //	int DrawWrapScroll(const )
 
 	int GetSize(std::string key, int* width, int* height);
-
-private:
 	int GetHandle(std::string key);
 
+private:
 	static bool is_sUpdate;
 	std::vector<std::string> key;	// Key name
 	std::vector<int> gh;			// Graphics handle

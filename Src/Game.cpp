@@ -28,7 +28,7 @@ void Game::Initialize()
 void Game::Update()
 {
 	// Pause
-	if (Keyboard::Instance()->GetDown(KEY_INPUT_SPACE) == 1)
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_Q) == 1)
 	{
 		isPause = !isPause;
 		Image::ChengeIsUpdate();
