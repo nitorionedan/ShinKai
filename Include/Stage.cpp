@@ -5,12 +5,13 @@
 Stage::Stage()
 	: img(new Image)
 	, sound(new Sound)
+	, logo(new SoundLogo)
 	, field((FieldTask*)(new Field(true, true, false, false, eBackType::Normal, eBackMoveType::Wave_Level1)) ) 
 {
 	img->Load("Images/sea00.png",		"sea");
-	img->Load("Images/ground00.png",	"grd0");
-	img->Load("Images/sky00.png",		"sky0");
-	sound->Load("Sounds/kimeraii.mp3", "bgm0");
+	img->Load("Images/ground00.png",	"grd00");
+	img->Load("Images/sky00.png",		"sky00");
+	sound->Load("Sounds/kimeraii.mp3",	"bgm00");
 
 	Initialize();
 }
@@ -23,17 +24,18 @@ Stage::~Stage()
 
 void Stage::Initialize()
 {
-	sound->PlayMem("bgm0", DX_PLAYTYPE_LOOP);
 	c_alpha = 0;
+
+	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
 }
 
 
 void Stage::Update()
 {
-	c_alpha += 1;
-	if (c_alpha > 255)	c_alpha = 255;
+	if(c_alpha < 255)	c_alpha++;
 
 	field->Update();
+	logo->Update();
 }
 
 
@@ -41,19 +43,51 @@ void Stage::Draw()
 {
 	// Sky
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
-	if ( field->HasSky() )	img->Draw(0, 0, "sky0");
+	if ( field->HasSky() )	img->Draw(0, 0, "sky00");
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// Back
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 - c_alpha);
 	img->Draw(0, 0, "sea");
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// Sea
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	field->Draw();
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
 
 	// Ground
-	if( field->HasGround() )	img->Draw(0, 0, "grd0", true);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
+	if( field->HasGround() )	img->Draw(0, 0, "grd00", true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	// Logo
+	logo->Draw();
+}
+
+
+Stage::SoundLogo::SoundLogo()
+	: img(new Image)
+{
+	img->Load("Images/sound_logo.png", "logo");
+	counter = 0;
+	c_alpha = 256;
+}
+
+
+void Stage::SoundLogo::Update()
+{
+	// –ñ‚S•b‚Ü‚Å
+	if (counter < 240) {
+		counter++;
+	}else{
+		if(c_alpha > 0)	c_alpha--;
+	}
+}
+
+
+void Stage::SoundLogo::Draw()
+{
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
+	img->Draw(0, 0, "logo", true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 

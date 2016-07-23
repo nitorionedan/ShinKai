@@ -15,6 +15,7 @@ public:
 	void Initialize();
 
 private:
+	void setup();
 	void Move();
 
 	const double UNDER_BOUNDARY;
@@ -24,5 +25,6 @@ private:
 	double maxSpeed, mass, gravity;
 	int gh_player[4];
 	int elapsedTime;
+	int c_color;
 	bool isTurn;
 };

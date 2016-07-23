@@ -3,6 +3,9 @@
 #include "DxLib.h"
 #include "Graphics2D.hpp"
 #include <algorithm>
+#include <string>
+#include <fstream>
+#include <cassert>
 #undef max
 #undef min
 
@@ -14,6 +17,7 @@ Player::Player()
 	img->Load("Images/player00.png", "player");
 	LoadDivGraph("Images/player01.png", 4, 2, 2, 36, 28, gh_player);
 	
+	setup();
 	Initialize();
 }
 
@@ -26,75 +30,23 @@ Player::~Player()
 
 void Player::Initialize()
 {
-	pos   = Vector2D(160., 120.);
-	vMove = Vector2D(0., 0.);
-	elapsedTime = 0;
-	isTurn = false;
-	
+	// super class members
 	{
-		FILE* fp;
-		int c;
-		char buf[100];
-		int col = 1;
-		int row = 0;
-		
-		for (auto& i : buf)	i = 0;
-
-		fopen_s(&fp, "Resource/PlayerStatus.csv", "rb");
-		
-		while (fgetc(fp) != '\n');
-
-		while (1)
-		{
-			while(1)
-			{
-				c = fgetc(fp);
-
-				// 末尾なら全てのループを抜ける
-				if (c == EOF)	goto out;
-
-				// カンマか改行以外なら、文字として連結
-				if (c != ',' && c != '\n') {
-					strcat_s(buf, sizeof(buf) / sizeof(buf[0]), (const char*)&c);
-				}
-				// カンマか改行ならループを抜ける
-				else {
-					break;
-				}
-			}
-
-			switch (col)
-			{
-			case 1:	mass = atoi(buf);		break;
-			case 2:	maxSpeed = atoi(buf);	break;
-			default:	break;
-			}
-
-			// バッファを初期化
-			for (auto& i : buf)	i = 0;
-
-			// 列数を足す
-			++col;
-
-			// もし読み込んだ文字列が改行だったら列数を初期化して行数を増やす
-			if(c == '\n')
-			{
-				col = 1;
-				++row;
-			}
-		}
-
-		out:
-		fclose(fp);
+		pos = Vector2D(160., 120.);
+		vMove = Vector2D(0., 0.);
+		elapsedTime = 0;
+		isTurn = false;
 	}
 
 	gravity = (mass / 100.);
+	c_color = 0;
 }
 
 
 void Player::Update()
 {
 	elapsedTime++;
+	if (c_color < 255)	c_color++;
 
 	Move();
 
@@ -105,10 +57,60 @@ void Player::Update()
 
 void Player::Draw()
 {
+	SetDrawBright(c_color, c_color, c_color);
 	DrawAnime(pos.x, pos.y, 1., 0., elapsedTime, sizeof(gh_player) / sizeof(gh_player[0]), 6, gh_player, isTurn);
+	SetDrawBright(255, 255, 255);
 
 	// TEST
 	//DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf", pos.y);
+}
+
+
+void Player::setup()
+{
+	// file open
+	std::ifstream ifs("Resource/PlayerStatus.csv", std::ios::in);
+
+	// exception
+	assert(ifs.is_open() && "Failed open the file.");
+
+	std::string buf;	// input character
+	int col = 1;		// column
+
+	buf.clear();
+
+	// header skip
+	while (ifs.get() != '\n') {}
+
+	// file reading
+	while (!ifs.eof())
+	{
+		char c = ifs.get();
+
+		// よくわからんけどなんか -1 がおるから
+		if (c == -1)	break;
+
+		// カンマ、改行以外なら
+		if (c != ',' && c != '\n')
+		{
+			buf += c;
+			continue;
+		}
+
+		switch (col)
+		{
+		case 1: mass = std::stoi(buf);		break;
+		case 2: maxSpeed = std::stoi(buf);	break;
+		default: break;
+		}
+
+		// go to next column
+		col++;
+
+		buf.clear();
+	}
+
+	ifs.close();
 }
 
 
@@ -116,9 +118,6 @@ void Player::Move()
 {
 	const double& MAX_SPEED = maxSpeed;
 	const double& GRAVITY = gravity;
-
-	// use gravity
-	pos.y += GRAVITY;
 
 	// moving
 	vMove.SetZero();
@@ -128,6 +127,7 @@ void Player::Move()
 	if (Keyboard::Instance()->GetDown(KEY_INPUT_W) >= 1)	vMove.y = -MAX_SPEED;
 
 	// add force
+	pos.y += GRAVITY;
 	pos += vMove;
 
 	// over boundary

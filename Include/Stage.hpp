@@ -9,6 +9,19 @@
 
 class Stage
 {
+	class SoundLogo
+	{
+	public:
+		SoundLogo();
+		~SoundLogo() {}
+		void Update();
+		void Draw();
+	private:
+		std::unique_ptr<Image> img;
+		int counter;
+		int c_alpha;
+	};
+
 public:
 	Stage();
 	~Stage();
@@ -19,6 +32,7 @@ public:
 private:
 	std::unique_ptr<Image> img;
 	std::unique_ptr<Sound> sound;
+	std::unique_ptr<SoundLogo> logo;
 	std::shared_ptr<FieldTask> field;
 	double c_alpha;
 };

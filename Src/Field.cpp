@@ -54,7 +54,8 @@ void Field::Draw()
 		img->Draw(0, 0, "sea");
 		break;
 	case eBackMoveType::Wave_Level1:
-		img->DrawRasterScroll(160, 160, 2.5, shake, 0.3, "sea", false);
+//		img->DrawRasterScroll(160, 160, 2.5, shake, 0.3, "sea", false);
+		img->DrawRasterScroll(160, 160, 2.5, shake, -shake / 10, "sea", false);
 		break;
 	default:	break;
 	}
