@@ -62,7 +62,7 @@ void Player::Draw()
 	SetDrawBright(255, 255, 255);
 
 	// TEST
-	//DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf", pos.y);
+	DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf, pos.x = %lf", pos.y, pos.x);
 }
 
 
@@ -75,38 +75,36 @@ void Player::setup()
 	assert(ifs.is_open() && "Failed open the file.");
 
 	std::string buf;	// input character
-	int col = 1;		// column
-
-	buf.clear();
+	int nowCol = 1;		// column
 
 	// header skip
 	while (ifs.get() != '\n') {}
 
 	// file reading
-	while (!ifs.eof())
+	while ( !ifs.eof() )
 	{
-		char c = ifs.get();
+		char tmpChar = ifs.get();
 
 		// よくわからんけどなんか -1 がおるから
-		if (c == -1)	break;
+		if (tmpChar == -1)	break;
 
 		// カンマ、改行以外なら
-		if (c != ',' && c != '\n')
+		if (tmpChar != ',' && tmpChar != '\n')
 		{
-			buf += c;
+			buf += tmpChar;
 			continue;
 		}
 
-		switch (col)
+		// sets member
+		switch (nowCol)
 		{
 		case 1: mass = std::stoi(buf);		break;
 		case 2: maxSpeed = std::stoi(buf);	break;
 		default: break;
 		}
 
-		// go to next column
-		col++;
-
+		// increment column counter
+		nowCol++;
 		buf.clear();
 	}
 

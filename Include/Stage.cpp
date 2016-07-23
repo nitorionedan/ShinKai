@@ -6,10 +6,12 @@ Stage::Stage()
 	: img(new Image)
 	, sound(new Sound)
 	, logo(new SoundLogo)
-	, field((FieldTask*)(new Field(true, true, false, false, eBackType::Normal, eBackMoveType::Wave_Level1)) ) 
+	, field( (FieldTask*)( new Field(true, true, true, true, eBackType::Normal, eBackMoveType::Wave_Level1) ) ) 
 {
 	img->Load("Images/sea00.png",		"sea");
 	img->Load("Images/ground00.png",	"grd00");
+	img->Load("Images/LWall00.png",		"lwall00");
+	img->Load("Images/RWall00.png",		"rwall00");
 	img->Load("Images/sky00.png",		"sky00");
 	sound->Load("Sounds/kimeraii.mp3",	"bgm00");
 
@@ -26,7 +28,7 @@ void Stage::Initialize()
 {
 	c_alpha = 0;
 
-	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
+//	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
 }
 
 
@@ -57,6 +59,12 @@ void Stage::Draw()
 	// Ground
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
 	if( field->HasGround() )	img->Draw(0, 0, "grd00", true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	// Walls
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
+	if ( field->HasLWall() )	img->Draw(0, 0, "lwall00", true);
+	if ( field->HasRWall() )	img->Draw(0, 0, "rwall00", true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// Logo

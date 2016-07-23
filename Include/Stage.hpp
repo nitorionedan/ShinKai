@@ -29,6 +29,9 @@ public:
 	void Update();
 	void Draw();
 
+	static const int L_BOUNDARY = 32;
+	static const int R_BOUNDARY = 287;
+
 private:
 	std::unique_ptr<Image> img;
 	std::unique_ptr<Sound> sound;
