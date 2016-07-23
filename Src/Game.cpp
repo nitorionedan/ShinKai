@@ -2,6 +2,7 @@
 #include "Keyboard.hpp"
 #include "DxLib.h"
 
+
 Game::Game(ISceneChanger * changer)
 	: BaseScene(changer)
 	, img(new Image)
@@ -9,6 +10,7 @@ Game::Game(ISceneChanger * changer)
 	, stage(new Stage)
 	, seaCre(new SeaCreature)
 {
+	Initialize();
 }
 
 
@@ -26,7 +28,7 @@ void Game::Initialize()
 void Game::Update()
 {
 	// Pause
-	if (Keyboard_Get(KEY_INPUT_SPACE) == 1)
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_Q) == 1)
 	{
 		isPause = !isPause;
 		Image::ChengeIsUpdate();
@@ -39,8 +41,8 @@ void Game::Update()
 	seaCre->Update();
 
 	// TEST
-	if (Keyboard_Get(KEY_INPUT_F2) == 1) mSceneChanger->ChangeScene(eScene_Menu);
-	if (Keyboard_Get(KEY_INPUT_O) == 1) seaCre->Create(eCreatureType::defaFish, 0, 0, 0);
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_F2) == 1) mSceneChanger->ChangeScene(eScene_Menu);
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_O) == 1) seaCre->Create(eCreatureType::defaFish, GetRand(5), 0, 0);
 }
 
 

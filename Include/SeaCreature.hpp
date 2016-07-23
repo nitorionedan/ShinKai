@@ -28,6 +28,7 @@ private:
 	void Initialize();
 	void LostBody();
 	void SearchOverBounday();
+	void DeleteCreature(Creature* creature);
 
 	// Left, Right, Top and Bottom boundary
 	static const double L_BOUNDARY, R_BOUNDARY, T_BOUNDARY, B_BOUNDARY;

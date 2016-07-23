@@ -7,12 +7,12 @@
 
 //------------------------------------------------------------------------------
 
-#include "DxLib.h"
-
 #include "Keyboard.hpp"
 #include "SceneMng.hpp"
 
 #include <memory>
+#include <random>
+#include <Dxlib.h>
 
 
 static int FrameStartTime;
@@ -40,7 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && isPlay)
 	{
 		FPSMng();
-		Keyboard_Update();
+		Keyboard::Instance()->Update();
 		DynamicConfig();
 		sceneMng->Update();
 		sceneMng->Draw();
@@ -53,7 +53,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 void FPSMng()
 {
-	while (GetNowCount() - FrameStartTime < FPS_60) {}		// wait for 1/60sec
+	while (GetNowCount() - FrameStartTime < FPS_60) {}		// wait for about 1/60sec
 	FrameStartTime = GetNowCount();							// save now count
 }
 
@@ -67,16 +67,21 @@ void Initialize()
 	SetWaitVSyncFlag(FALSE);																	// ‚’¼“¯ŠúM†‚ð‘Ò‚½‚È‚¢
 	FrameStartTime = GetNowCount();																// ŠJŽnŽžŠÔ‚ðÝ’è
 	SetMouseDispFlag(TRUE);
+
+	// random
+	std::random_device rnd;
+	SRand(rnd());
 }
 
 
 void DynamicConfig()
 {
 	// exit main loop
-	if (Keyboard_Get(KEY_INPUT_ESCAPE) == 1)	isPlay = false;
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_ESCAPE) == 1)
+		isPlay = false;
 
 	// Change window mode
-	if (Keyboard_Get(KEY_INPUT_F5) == 1)
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_F5) == 1)
 	{
 		isFullSc = !isFullSc;
 		ChangeWindowMode(isFullSc);

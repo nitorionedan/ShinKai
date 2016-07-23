@@ -1,22 +1,22 @@
-//------------------------------------------------------------------------------
-/// @file
-/// @brief		Key inputs manegement function
-/// @author		nitorionedan
-///
-/// @copyright  Copyright 2016 KITIC
-
-//------------------------------------------------------------------------------
-
-#ifndef DEF_KEYBOARD_HPP
-#define DEF_KEYBOARD_HPP
+#pragma once
+#include "Singleton.hpp"
 
 
-// キーの入力状態を更新する
-void Keyboard_Update();
+class Keyboard : public Singleton<Keyboard>
+{
 
-// 引数のキーコードのキーの入力状態を返す
-int Keyboard_Get(int KeyCode);
+	Keyboard();
+	friend Singleton<Keyboard>;
+public:
+	bool Update();
+	int GetDown(int keyCode);
+	int GetUp(int keyCode);
 
+private:
+	// keyCodeは有効なキーコードか？
+	bool IsAvailableCode(int keyCode);
 
-#endif
-// EOF
+	static const int KEY_NUM = 256;
+	int mKeyDownCount[KEY_NUM];
+	int mKeyUpCount[KEY_NUM];
+};

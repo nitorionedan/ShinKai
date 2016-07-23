@@ -11,4 +11,10 @@ Let's advent in the sea!<br />
 You can battle some creature, and you can collect treasure!<br />
 I'm want to create such a game :D<br />
 
-<h5>英語勉強中です！＞＜</h5>
+<h5>英語勉強中です！＞＜</h5> ↑ Please translate by yourself! HAHAHA!
+
+<a href="https://github.com/nitorionedan/ShinKai/wiki">Instructions are here:)</a><br>
+
+# Lisences
+libpng　Copyright (C) 2004, 2006-2012 Glenn Randers-Pehrson.<br />
+zlib　Copyright (C) 1995-2012 Jean-loup Gailly and Mark Adler.<br />

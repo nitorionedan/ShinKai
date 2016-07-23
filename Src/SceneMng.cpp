@@ -1,14 +1,14 @@
 #include "DxLib.h"
 
 #include "SceneMng.hpp"
-#include "Keyboard.hpp"
+#include "CKeyboard.hpp"
 
 #include "Game.hpp"
 #include "Menu.hpp"
 
 
 SceneMng::SceneMng() : mNextScene(eScene_None) {		// 次のシーン管理変数
-	mScene = static_cast<BaseScene*> (new Game(this));	// 最初のシーン
+	mScene = static_cast<BaseScene*> (new Menu(this));	// 最初のシーン
 }
 
 

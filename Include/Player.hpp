@@ -15,16 +15,16 @@ public:
 	void Initialize();
 
 private:
-	static const double MASS;
-	static const double GRAVITY;
-	static const double UNDER_BOUNDARY;
-	static const double MAX_SPEED;
-
+	void setup();
 	void Move();
+
+	const double UNDER_BOUNDARY;
 
 	std::unique_ptr<Image> img;
 	Vector2D pos, vMove;
+	double maxSpeed, mass, gravity;
 	int gh_player[4];
 	int elapsedTime;
+	int c_color;
 	bool isTurn;
 };

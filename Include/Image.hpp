@@ -75,15 +75,17 @@ public:
 >>>>>>> dev
 
 	int GetSize(std::string key, int* width, int* height);
-
-private:
 	int GetHandle(std::string key);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	std::vector<std::string> key;	// key name
 	std::vector<int> gh;			// graphic handle
 	int count;						// loaded file num
 =======
+=======
+private:
+>>>>>>> dev
 	static bool is_sUpdate;
 	std::vector<std::string> key;	// Key name
 	std::vector<int> gh;			// Graphics handle
