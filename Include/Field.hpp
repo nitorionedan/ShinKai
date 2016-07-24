@@ -26,10 +26,10 @@ public:
 	~Field();
 	void Update() override;
 	void Draw() override;
-	bool HasGround() override;
-	bool HasSky() override;
-	bool HasLWall() override;
-	bool HasRWall() override;
+	bool HasGround() const override;
+	bool HasSky() const override;
+	bool HasLWall() const override;
+	bool HasRWall() const override;
 
 private:
 	Field();

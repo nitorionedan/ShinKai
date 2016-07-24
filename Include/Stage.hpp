@@ -16,6 +16,7 @@ class Stage
 		~SoundLogo() {}
 		void Update();
 		void Draw();
+
 	private:
 		std::unique_ptr<Image> img;
 		int counter;
@@ -28,9 +29,7 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
-
-	static const int L_BOUNDARY = 32;
-	static const int R_BOUNDARY = 287;
+	const std::shared_ptr<FieldTask>& GetField();
 
 private:
 	std::unique_ptr<Image> img;

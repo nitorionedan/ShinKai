@@ -2,6 +2,7 @@
 
 #include "Vector2D.hpp"
 #include "Image.hpp"
+#include "Field.hpp"
 #include <memory>
 
 
@@ -10,7 +11,7 @@ class Player
 public:
 	Player();
 	~Player();
-	void Update();
+	void Update(const std::shared_ptr<FieldTask>& field);
 	void Draw();
 	void Initialize();
 
@@ -18,7 +19,10 @@ private:
 	void setup();
 	void Move();
 
-	const double UNDER_BOUNDARY;
+	static const int T_BOUNDARY = 48;
+	static const int B_BOUNDARY = 224;
+	static const int L_BOUNDARY = 32;
+	static const int R_BOUNDARY = 287;
 
 	std::unique_ptr<Image> img;
 	Vector2D pos, vMove;

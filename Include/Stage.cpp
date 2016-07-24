@@ -28,7 +28,7 @@ void Stage::Initialize()
 {
 	c_alpha = 0;
 
-//	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
+	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
 }
 
 
@@ -71,6 +71,10 @@ void Stage::Draw()
 	logo->Draw();
 }
 
+const std::shared_ptr<FieldTask>& Stage::GetField(){
+	return field;
+}
+
 
 Stage::SoundLogo::SoundLogo()
 	: img(new Image)
@@ -98,5 +102,6 @@ void Stage::SoundLogo::Draw()
 	img->Draw(0, 0, "logo", true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
+
 
 // EOF

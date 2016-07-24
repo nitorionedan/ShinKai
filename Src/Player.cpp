@@ -11,19 +11,23 @@
 
 
 Player::Player()
-	: UNDER_BOUNDARY(224.)
-	, img(new Image)
+	: img(new Image)
 {
+	// load media
 	img->Load("Images/player00.png", "player");
 	LoadDivGraph("Images/player01.png", 4, 2, 2, 36, 28, gh_player);
-	
+
+	// load player statsu
 	setup();
+
+	// set status
 	Initialize();
 }
 
 
 Player::~Player()
 {
+	// release media memory
 	for (auto& i : gh_player)	DeleteGraph(i);
 }
 
@@ -43,13 +47,30 @@ void Player::Initialize()
 }
 
 
-void Player::Update()
+void Player::Update(const std::shared_ptr<FieldTask>& field)
 {
 	elapsedTime++;
 	if (c_color < 255)	c_color++;
 
 	Move();
 
+	// temporary
+	double	t_boundaty = -100.,
+			b_boundary = 420.,
+			l_boundary = -100.,
+			r_boundary = 260.;
+
+	// set boundary in some cases
+	if ( field->HasGround() )	b_boundary = static_cast<double>(B_BOUNDARY);
+	if ( field->HasSky() )		t_boundaty = static_cast<double>(T_BOUNDARY);
+	if ( field->HasLWall() )	l_boundary = static_cast<double>(L_BOUNDARY);
+	if ( field->HasRWall() )	r_boundary = static_cast<double>(R_BOUNDARY);
+
+	// over boundary check
+	pos.x = std::max( std::min(pos.x, r_boundary), l_boundary );
+	pos.y = std::max( std::min(pos.y, b_boundary), t_boundaty );
+
+	// change player directions
 	if (vMove.x > 0)	isTurn = false;
 	if (vMove.x < 0)	isTurn = true;
 }
@@ -62,7 +83,7 @@ void Player::Draw()
 	SetDrawBright(255, 255, 255);
 
 	// TEST
-	DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf, pos.x = %lf", pos.y, pos.x);
+//	DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf, pos.x = %lf", pos.y, pos.x);
 }
 
 
@@ -85,13 +106,13 @@ void Player::setup()
 	{
 		char tmpChar = ifs.get();
 
-		// よくわからんけどなんか -1 がおるから
+		// I don't know, tmpChar becomes -1 when it wents EOF X(
 		if (tmpChar == -1)	break;
 
-		// カンマ、改行以外なら
+		// if tmpChar is ',' and '\n', string catch
 		if (tmpChar != ',' && tmpChar != '\n')
 		{
-			buf += tmpChar;
+			buf += tmpChar; // strcat
 			continue;
 		}
 
@@ -127,9 +148,6 @@ void Player::Move()
 	// add force
 	pos.y += GRAVITY;
 	pos += vMove;
-
-	// over boundary
-	pos.y = std::max(std::min(pos.y, UNDER_BOUNDARY), 48.);
 }
 
 // EOF
