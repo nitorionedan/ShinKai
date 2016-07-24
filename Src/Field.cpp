@@ -16,12 +16,14 @@ Field::Field(bool hasGround, bool hasSky, bool hasLWall, bool hasRWall, eBackTyp
 	case eBackType::Normal:
 		img->Load("Images/sea00.png", "sea");
 		break;
+	case eBackType::Level2:
+		break;
+	case eBackType::Level3:
+		break;
 	case eBackType::NormalShine:
 		img->Load("Images/sea01.png", "sea");
 		break;
-	default:
-		img->Load("Images/sea00.png", "sea");
-		break;
+	default:	img->Load("Images/sea00.png", "sea");	break;
 	}
 
 	Initialize();
@@ -51,6 +53,9 @@ void Field::Draw()
 	switch (m_type)
 	{
 	case eBackMoveType::Normal:
+		img->DrawRota(160., 160., 1., 0., "sea", true);
+		break;
+	case eBackMoveType::Into:
 		img->Draw(0, 0, "sea");
 		break;
 	case eBackMoveType::Wave_Level1:
@@ -85,8 +90,6 @@ void Field::Move()
 {
 	switch (m_type)
 	{
-	case eBackMoveType::Normal:
-		break;
 	case eBackMoveType::Wave_Level1:
 		c_shake += 0.009;
 		shake = std::sin(c_shake) * 10;

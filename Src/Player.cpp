@@ -47,7 +47,7 @@ void Player::Initialize()
 }
 
 
-void Player::Update(const std::shared_ptr<FieldTask>& field)
+void Player::Update(const std::unique_ptr<FieldTask>& field)
 {
 	elapsedTime++;
 	if (c_color < 255)	c_color++;
@@ -56,9 +56,9 @@ void Player::Update(const std::shared_ptr<FieldTask>& field)
 
 	// temporary
 	double	t_boundaty = -100.,
-			b_boundary = 420.,
+			b_boundary = 340.,
 			l_boundary = -100.,
-			r_boundary = 260.;
+			r_boundary = 420.;
 
 	// set boundary in some cases
 	if ( field->HasGround() )	b_boundary = static_cast<double>(B_BOUNDARY);
