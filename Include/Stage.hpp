@@ -7,15 +7,27 @@
 #include <memory>
 
 
+enum class eChangeStage
+{
+	Up,		// go to up
+	Down,	// ...
+	Left,
+	Right,
+
+	First,	// start point
+};
+
+
 class Stage
 {
 	class SoundLogo
 	{
 	public:
 		SoundLogo();
-		~SoundLogo() {}
+		~SoundLogo(){}
 		void Update();
 		void Draw();
+
 	private:
 		std::unique_ptr<Image> img;
 		int counter;
@@ -28,16 +40,22 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
+	void ChangeField(eChangeStage nextStage);
+	const std::unique_ptr<FieldTask>& GetField() {
+		return field;
+	}
 
 private:
 	std::unique_ptr<Image> img;
 	std::unique_ptr<Sound> sound;
 	std::unique_ptr<SoundLogo> logo;
-	std::shared_ptr<FieldTask> field;
+	std::unique_ptr<FieldTask> field;
+	eChangeStage nextStage;
 	double c_alpha;
 };
 
 
+// get array length
 template<typename TYPE, std::size_t SIZE>
 std::size_t array_length(const TYPE(&)[SIZE])
 {

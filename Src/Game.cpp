@@ -36,7 +36,7 @@ void Game::Update()
 
 	if (isPause)	return;
 
-	player->Update();
+	player->Update( stage->GetField() );
 	stage->Update();
 	seaCre->Update();
 
