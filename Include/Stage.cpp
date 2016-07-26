@@ -1,4 +1,5 @@
 #include "Stage.hpp"
+#include "Keyboard.hpp"
 #include <cmath>
 
 
@@ -6,7 +7,7 @@ Stage::Stage()
 	: img(new Image)
 	, sound(new Sound)
 	, logo(new SoundLogo)
-	, field( (FieldTask*)( new Field(false, true, true, false, eBackType::Normal, eBackMoveType::Normal) ) ) 
+	, field( static_cast<FieldTask*>(new Field) )
 {
 	img->Load("Images/sea00.png",		"sea");
 	img->Load("Images/ground00.png",	"grd00");
@@ -27,7 +28,7 @@ Stage::~Stage()
 void Stage::Initialize()
 {
 	c_alpha = 0;
-
+	field->StageSwitching(8, 9);
 //	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
 }
 
@@ -38,6 +39,9 @@ void Stage::Update()
 
 	field->Update();
 	logo->Update();
+
+	// TEST
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_P) == 1)	field->StageSwitching(GetRand(9), GetRand(9));
 }
 
 
@@ -99,6 +103,7 @@ void Stage::SoundLogo::Update()
 void Stage::SoundLogo::Draw()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, c_alpha);
+	SetDrawBlendMode(DX_BLENDMODE_INVSRC, c_alpha);
 	img->Draw(0, 0, "logo", true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

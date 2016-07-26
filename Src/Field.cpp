@@ -3,13 +3,14 @@
 #include <cassert>
 
 
-Field::Field(bool hasGround, bool hasSky, bool hasLWall, bool hasRWall, eBackType type, eBackMoveType m_type)
+Field::Field(bool hasGround, bool hasSky, bool hasLWall, bool hasRWall, bool hasCeiling, eBackType type, eBackMoveType m_type)
 	: img(new Image)
 {
 	fieldStatus.hasGround = hasGround;
 	fieldStatus.hasSky = hasSky;
 	fieldStatus.hasLWall = hasLWall;
 	fieldStatus.hasRWall = hasRWall;
+	fieldStatus.hasCeiling = hasCeiling;
 	type = type;
 	m_type = m_type;
 
@@ -28,10 +29,30 @@ Field::Field(bool hasGround, bool hasSky, bool hasLWall, bool hasRWall, eBackTyp
 }
 
 
+Field::Field()
+	: img(new Image)
+	, type(eBackType::Normal)
+	, m_type(eBackMoveType::Wave_Level1)
+{
+	img->Load("Images/sea00.png", "sea00");
+	img->Load("Images/sea01.png", "sea01");
+	img->Load("Images/sea02.png", "sea02");
+	img->Load("Images/sea03.png", "sea03");
+	Initialize();
+	setup();
+}
+
+
 void Field::Initialize()
 {
+	field_pos = Vector2D(9, 0);
 	c_shake = 0;
 	shake = 0;
+	for (int i = 0; i < MAP_SIZE; i++){
+		for (int j = 0; j < MAP_SIZE; j++) {
+			fieldID[i][j] = 0;
+		}
+	}
 }
 
 
@@ -51,7 +72,7 @@ void Field::setup()
 	while (ifs.get() != '\n') {}
 
 	// file reading
-	while (!ifs.eof())
+	while ( !ifs.eof() )
 	{
 		char tmpChar = ifs.get();
 
@@ -66,24 +87,35 @@ void Field::setup()
 		}
 
 		// sets member
-		switch (nowCol)
-		{
-		case 1: mass = std::stoi(buf);		break;
-		case 2: maxSpeed = std::stoi(buf);	break;
-		default: break;
-		}
+		fieldID.at(nowRaw - 1).at(nowCol - 1) = std::stoi(buf);
 
 		// increment column counter
 		nowCol++;
+		if (tmpChar == '\n')
+		{
+			nowRaw++;
+			nowCol = 1; // reset
+		}
 		buf.clear();
 	}
 
 	ifs.close();
-}
 
 
-Field::~Field()
-{
+	/* TEST--------------------------------------
+	std::ofstream ofs("FieldStatusTest.txt", std::ios::out);
+	
+	int count = 0;
+	for (int i = 0; i < MAP_SIZE; i++) {
+		for (int j = 0; j < MAP_SIZE; j++) {
+			count++;
+			ofs << fieldID.at(i).at(j) << ",";
+			if (j == 9)	ofs << std::endl;
+		}
+	}
+
+	ofs.close();
+	~TEST--------------------------------------*/
 }
 
 
@@ -98,13 +130,37 @@ void Field::Draw()
 	switch (m_type)
 	{
 	case eBackMoveType::Normal:
-		img->DrawRota(160., 160., 1., 0., "sea", true);
+		switch (type)
+		{
+		case eBackType::Normal:			img->DrawRota(160., 160., 1., 0., "sea00", true);	break;
+		case eBackType::NormalShine:	break;
+		case eBackType::Level2:			img->DrawRota(160., 160., 1., 0., "sea01", true);	break;
+		case eBackType::Level3:			img->DrawRota(160., 160., 1., 0., "sea02", true);	break;
+		case eBackType::Level4:			img->DrawRota(160., 160., 1., 0., "sea03", true);	break;
+		default:	break;
+		}
 		break;
 	case eBackMoveType::Into:
-		img->Draw(0, 0, "sea");
-		break;
+		switch (type)
+		{
+		case eBackType::Normal:			img->Draw(0, 0, "sea00");	break;
+		case eBackType::NormalShine:	break;
+		case eBackType::Level2:			img->Draw(0, 0, "sea01");	break;
+		case eBackType::Level3:			img->Draw(0, 0, "sea02");	break;
+		case eBackType::Level4:			img->Draw(0, 0, "sea03");	break;
+		default:	break;
+		}
+		break;		
 	case eBackMoveType::Wave_Level1:
-		img->DrawRasterScroll(160, 160, 2.5, shake, -shake / 10, "sea", false);
+		switch (type)
+		{
+		case eBackType::Normal:			img->DrawRasterScroll(160, 160, 2.5, shake, -shake / 10, "sea00", false);	break;
+		case eBackType::NormalShine:	break;
+		case eBackType::Level2:			img->DrawRasterScroll(160, 160, 2.5, shake, -shake / 10, "sea01", false);	break;
+		case eBackType::Level3:			img->DrawRasterScroll(160, 160, 2.5, shake, -shake / 10, "sea02", false);	break;
+		case eBackType::Level4:			img->DrawRasterScroll(160, 160, 2.5, shake, -shake / 10, "sea03", false);	break;
+		default:	break;
+		}
 		break;
 	default:	break;
 	}
@@ -141,6 +197,41 @@ void Field::Move()
 		break;
 	default:	break;
 	}
+}
+
+
+void Field::StageSwitching(int x, int y)
+{
+	int tmpID = fieldID.at(y).at(x);
+
+	FieldStatus tmpStatus = { false, false, false, false, false };
+
+	// set field status
+	for (int i = 0; i < 5; i++)
+	{
+		switch (tmpID % 10)
+		{
+		case 1:	tmpStatus.hasGround = true;		break;
+		case 2: tmpStatus.hasSky = true;		break;
+		case 3:	tmpStatus.hasLWall = true;		break;
+		case 4:	tmpStatus.hasRWall = true;		break;
+		case 5:	tmpStatus.hasCeiling = true;	break;
+		default:	break;
+		}
+		tmpID /= 10;
+	}
+
+	// set Back type
+	if		(y <= 3)	type = eBackType::Normal;
+	else if (y <= 6)	type = eBackType::Level2;
+	else if (y <= 8)	type = eBackType::Level3;
+	else if (y <= 10)	type = eBackType::Level4;
+
+	// set move type
+	if (y == 0)	m_type = eBackMoveType::Wave_Level1;
+	else		m_type = eBackMoveType::Into;
+
+	fieldStatus = tmpStatus;
 }
 
 
