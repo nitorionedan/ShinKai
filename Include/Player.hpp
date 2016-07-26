@@ -11,7 +11,7 @@ class Player
 public:
 	Player();
 	~Player();
-	void Update(const std::shared_ptr<FieldTask>& field);
+	void Update(const std::unique_ptr<FieldTask>& field);
 	void Draw();
 	void Initialize();
 

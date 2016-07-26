@@ -6,7 +6,7 @@ Stage::Stage()
 	: img(new Image)
 	, sound(new Sound)
 	, logo(new SoundLogo)
-	, field( (FieldTask*)( new Field(true, true, true, true, eBackType::Normal, eBackMoveType::Wave_Level1) ) ) 
+	, field( (FieldTask*)( new Field(false, true, true, false, eBackType::Normal, eBackMoveType::Normal) ) ) 
 {
 	img->Load("Images/sea00.png",		"sea");
 	img->Load("Images/ground00.png",	"grd00");
@@ -28,7 +28,7 @@ void Stage::Initialize()
 {
 	c_alpha = 0;
 
-	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
+//	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
 }
 
 
@@ -71,8 +71,9 @@ void Stage::Draw()
 	logo->Draw();
 }
 
-const std::shared_ptr<FieldTask>& Stage::GetField(){
-	return field;
+
+void Stage::ChangeField(eChangeStage nextStage)
+{
 }
 
 
@@ -87,11 +88,10 @@ Stage::SoundLogo::SoundLogo()
 
 void Stage::SoundLogo::Update()
 {
-	// –ñ‚S•b‚Ü‚Å
-	if (counter < 240) {
+	if (counter < 240) {			// in 4 sec
 		counter++;
 	}else{
-		if(c_alpha > 0)	c_alpha--;
+		if(c_alpha > 0)	c_alpha--;	// feed out this
 	}
 }
 

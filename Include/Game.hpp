@@ -22,9 +22,9 @@ public:
 	
 private:
 	std::unique_ptr<Image> img;
-	std::shared_ptr<Player> player;
-	std::shared_ptr<Stage> stage;
-	std::shared_ptr<SeaCreature> seaCre;
+	std::unique_ptr<Player> player;
+	std::unique_ptr<Stage> stage;
+	std::unique_ptr<SeaCreature> seaCre;
 	bool isPause;
 };
 

@@ -1,32 +1,30 @@
 #include "Field.hpp"
+#include <fstream>
+#include <cassert>
 
 
 Field::Field(bool hasGround, bool hasSky, bool hasLWall, bool hasRWall, eBackType type, eBackMoveType m_type)
 	: img(new Image)
 {
-	this->fieldStatus.hasGround = hasGround;
-	this->fieldStatus.hasSky = hasSky;
-	this->fieldStatus.hasLWall = hasLWall;
-	this->fieldStatus.hasRWall = hasRWall;
-	this->type = type;
-	this->m_type = m_type;
+	fieldStatus.hasGround = hasGround;
+	fieldStatus.hasSky = hasSky;
+	fieldStatus.hasLWall = hasLWall;
+	fieldStatus.hasRWall = hasRWall;
+	type = type;
+	m_type = m_type;
 
 	switch (type)
 	{
-	case eBackType::Normal:
-		img->Load("Images/sea00.png", "sea");
-		break;
-	case eBackType::Level2:
-		break;
-	case eBackType::Level3:
-		break;
-	case eBackType::NormalShine:
-		img->Load("Images/sea01.png", "sea");
-		break;
-	default:	img->Load("Images/sea00.png", "sea");	break;
+	case eBackType::Normal:		 img->Load("Images/sea00.png", "sea");	break;
+	case eBackType::Level2:		 img->Load("Images/sea01.png", "sea");	break;
+	case eBackType::Level3:		 img->Load("Images/sea02.png", "sea");	break;
+	case eBackType::Level4:		 img->Load("Images/sea03.png", "sea");	break;
+	case eBackType::NormalShine: img->Load("Images/sea01.png", "sea");	break;
+	default:					 img->Load("Images/sea00.png", "sea");	break;
 	}
 
 	Initialize();
+	setup();
 }
 
 
@@ -34,6 +32,53 @@ void Field::Initialize()
 {
 	c_shake = 0;
 	shake = 0;
+}
+
+
+void Field::setup()
+{
+	// file open
+	std::ifstream ifs("Resource/FieldTable.csv", std::ios::in);
+
+	// exception
+	assert(ifs.is_open() && "Failed open the file.");
+
+	std::string buf;	// input character
+	int nowCol = 1;		// column
+	int nowRaw = 1;		// raw
+
+						// header skip
+	while (ifs.get() != '\n') {}
+
+	// file reading
+	while (!ifs.eof())
+	{
+		char tmpChar = ifs.get();
+
+		// I don't know, tmpChar becomes -1 when it wents EOF X(
+		if (tmpChar == -1)	break;
+
+		// if tmpChar is ',' and '\n', string catch
+		if (tmpChar != ',' && tmpChar != '\n')
+		{
+			buf += tmpChar; // strcat
+			continue;
+		}
+
+		// sets member
+		switch (nowCol)
+		{
+		case 1: mass = std::stoi(buf);		break;
+		case 2: maxSpeed = std::stoi(buf);	break;
+		default: break;
+		}
+
+		// increment column counter
+		nowCol++;
+		buf.clear();
+	}
+
+	ifs.close();
 }
 
 

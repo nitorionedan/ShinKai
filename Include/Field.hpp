@@ -5,16 +5,22 @@
 #include <memory>
 
 
+// type of sea image
 enum class eBackType
 {
 	Normal,
 	NormalShine,
+	Level2,
+	Level3,
+	Level4,
 };
 
 
+// type of sea movings
 enum class eBackMoveType
 {
 	Normal,
+	Into,
 	Wave_Level1,
 };
 
@@ -34,11 +40,15 @@ public:
 private:
 	Field();
 	void Initialize();
+	void setup();
 	void Move(); // Ç¢ÇÈÇ©ÅH
+
+	static const int MAP_SIZE = 10;
 
 	std::unique_ptr<Image> img;
 	eBackType type;
 	eBackMoveType m_type;
 	double c_shake;
 	double shake;
+//	int field[MAP_SIZE];
 };
