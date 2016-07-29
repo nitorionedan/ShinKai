@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <cassert>
+#define T_T 1
 
 
 Stage::Stage()
@@ -37,30 +38,36 @@ void Stage::setup()
 
 	// input file strings
 	std::string buf;
-	std::string fname;
 
 	while ( !ios.eof() )
 	{
+		// strcat
 		char tmpChar;
 		tmpChar = ios.get();
+		buf += tmpChar;
 
-		if(tmpChar == '='){
-			while(1)
+		// set level01 bgm
+		if(buf == "level01 = " || buf == "level01=")
+		{
+			buf.clear();
+			while (T_T) // cry
 			{
 				tmpChar = ios.get();
-				if (tmpChar == '\n')
+				if(tmpChar == '\n' || tmpChar == EOF)
 				{
-					fname = buf;
+					std::string dir("Sounds/");
+					dir += buf;
+					sound->Load(dir.c_str(), "bgm01");
+					buf.clear();
 					break;
 				}
+				// strcat
 				buf += tmpChar;
 			}
 		}
 	}
 
 	ios.close();
-
-	sound->Load(fname.c_str(), "bgm00");
 }
 
 
@@ -68,7 +75,8 @@ void Stage::Initialize()
 {
 	c_alpha = 0;
 	field->StageSwitching(8, 9);
-	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
+	sound->List();
+	sound->PlayMem("bgm01", DX_PLAYTYPE_LOOP);
 }
 
 

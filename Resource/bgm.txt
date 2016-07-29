@@ -1,1 +1,2 @@
-level01=Sounds/kimeraii.mp3
+level01 = kimeraii.mp3
+level01 = kimeraii.mp3
