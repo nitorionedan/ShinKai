@@ -12,6 +12,7 @@
 
 Player::Player()
 	: img(new Image)
+	, mSalvage(new Salvage)
 {
 	// load media
 	img->Load("Images/player00.png", "player");
@@ -73,6 +74,10 @@ void Player::Update(const std::unique_ptr<FieldTask>& field)
 	// change player directions
 	if (vMove.x > 0)	isTurn = false;
 	if (vMove.x < 0)	isTurn = true;
+
+
+	// salvage
+	mSalvage->Update(*this);
 }
 
 
@@ -81,6 +86,8 @@ void Player::Draw()
 	SetDrawBright(c_color, c_color, c_color);
 	DrawAnime(pos.x, pos.y, 1., 0., elapsedTime, sizeof(gh_player) / sizeof(gh_player[0]), 6, gh_player, isTurn);
 	SetDrawBright(255, 255, 255);
+
+	mSalvage->Draw(*this);
 
 	// TEST
 //	DrawFormatString(0, 30, GetColor(255, 0, 0), "pos.y = %lf, pos.x = %lf", pos.y, pos.x);
@@ -148,6 +155,77 @@ void Player::Move()
 	// add force
 	pos.y += GRAVITY;
 	pos += vMove;
+}
+
+
+Player::Salvage::Salvage()
+{
+	LoadDivGraph("Images/salvage.png", 4, 4, 1, 52, 100, gh);
+	Initialize();
+}
+
+
+Player::Salvage::~Salvage()
+{
+	for (auto& i : gh)	DeleteGraph(i);
+}
+
+
+void Player::Salvage::Initialize()
+{
+	count = 0;
+	isSalvage = false;
+}
+
+
+void Player::Salvage::Update(const Player& player)
+{
+	if (player.isTurn)
+	{
+		pos.x = player.pos.x - 30;
+	}
+	else
+	{
+		pos.x = player.pos.x + 30;
+	}
+	pos.y = player.pos.y + 8;
+
+	// salvaging
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_R) >= 1) {
+		count++;
+		isSalvage = true;
+	}
+	else {
+		count--;
+	}
+
+	count = std::min(std::max(count, 0), Time - 1);
+
+	// switching
+	if (count == 0)	isSalvage = false;
+}
+
+
+void Player::Salvage::Draw(const Player& player)
+{
+	if ( !isSalvage )	return;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if(count >= (i * FrameTime) && count < (i * FrameTime) + FrameTime)
+			DrawRotaGraph(pos.x, pos.y, 1., 0., gh[i], true, player.isTurn);
+	}
+
+	/*
+	if( count >=  0 && count < 30 )
+		DrawRotaGraph(player.pos.x, player.pos.y, 1., 0., gh[0], player.isTurn, true);
+	if (count >= 30 && count < 60)
+		DrawRotaGraph(player.pos.x, player.pos.y, 1., 0., gh[1], player.isTurn, true);
+	if (count >= 60 && count < 90)
+		DrawRotaGraph(player.pos.x, player.pos.y, 1., 0., gh[2], player.isTurn, true);
+	if (count >= 90 && count < 120)
+		DrawRotaGraph(player.pos.x, player.pos.y, 1., 0., gh[3], player.isTurn, true);
+	*/
 }
 
 // EOF

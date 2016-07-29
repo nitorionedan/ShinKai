@@ -8,6 +8,26 @@
 
 class Player
 {
+	class Salvage
+	{
+	public:
+		Salvage();
+		~Salvage();
+		void Initialize();
+		void Update(const Player& player);
+		void Draw(const Player& player);
+
+	private:
+		static const int FrameNum = 4;
+		static const int FrameTime = 4;
+		static const int Time = FrameTime * FrameNum;
+
+		Vector2D pos;
+		int gh[FrameNum];
+		int count;
+		bool isSalvage;
+	};
+
 public:
 	Player();
 	~Player();
@@ -25,6 +45,7 @@ private:
 	static const int R_BOUNDARY = 287;
 
 	std::unique_ptr<Image> img;
+	std::unique_ptr<Salvage> mSalvage;
 	Vector2D pos, vMove;
 	double maxSpeed, mass, gravity;
 	int gh_player[4];

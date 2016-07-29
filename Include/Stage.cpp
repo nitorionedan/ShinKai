@@ -1,6 +1,9 @@
 #include "Stage.hpp"
 #include "Keyboard.hpp"
 #include <cmath>
+#include <fstream>
+#include <string>
+#include <cassert>
 
 
 Stage::Stage()
@@ -14,8 +17,8 @@ Stage::Stage()
 	img->Load("Images/LWall00.png",		"lwall00");
 	img->Load("Images/RWall00.png",		"rwall00");
 	img->Load("Images/sky00.png",		"sky00");
-	sound->Load("Sounds/kimeraii.mp3",	"bgm00");
 
+	setup();
 	Initialize();
 }
 
@@ -25,11 +28,47 @@ Stage::~Stage()
 }
 
 
+void Stage::setup()
+{
+	std::ifstream ios("Resource/bgm.txt", std::ios::in);
+
+	// exception
+	assert(ios.is_open() && "failed open file");
+
+	// input file strings
+	std::string buf;
+	std::string fname;
+
+	while ( !ios.eof() )
+	{
+		char tmpChar;
+		tmpChar = ios.get();
+
+		if(tmpChar == '='){
+			while(1)
+			{
+				tmpChar = ios.get();
+				if (tmpChar == '\n')
+				{
+					fname = buf;
+					break;
+				}
+				buf += tmpChar;
+			}
+		}
+	}
+
+	ios.close();
+
+	sound->Load(fname.c_str(), "bgm00");
+}
+
+
 void Stage::Initialize()
 {
 	c_alpha = 0;
 	field->StageSwitching(8, 9);
-//	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
+	sound->PlayMem("bgm00", DX_PLAYTYPE_LOOP);
 }
 
 

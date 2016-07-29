@@ -24,7 +24,7 @@ class Stage
 	{
 	public:
 		SoundLogo();
-		~SoundLogo(){}
+		~SoundLogo() {}
 		void Update();
 		void Draw();
 
@@ -37,6 +37,7 @@ class Stage
 public:
 	Stage();
 	~Stage();
+	void setup();
 	void Initialize();
 	void Update();
 	void Draw();
