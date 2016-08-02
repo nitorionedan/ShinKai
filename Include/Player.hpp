@@ -18,9 +18,9 @@ class Player
 		void Draw(const Player& player);
 
 	private:
-		static const int FrameNum = 4;
-		static const int FrameTime = 4;
-		static const int Time = FrameTime * FrameNum;
+		static int const FrameNum = 4;
+		static int const FrameTime = 4;
+		static int const Time = FrameTime * FrameNum;
 
 		Vector2D pos;
 		int gh[FrameNum];

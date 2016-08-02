@@ -97,7 +97,7 @@ void Player::Draw()
 void Player::setup()
 {
 	// file open
-	std::ifstream ifs("Resource/PlayerStatus.csv", std::ios::in);
+	std::ifstream ifs("Resource/PlayerStatus.csv", std::ios::in | std::ios::binary);
 
 	// exception
 	assert(ifs.is_open() && "Failed open the file.");
@@ -180,6 +180,7 @@ void Player::Salvage::Initialize()
 
 void Player::Salvage::Update(const Player& player)
 {
+	// direction
 	if (player.isTurn)
 	{
 		pos.x = player.pos.x - 30;
@@ -190,14 +191,12 @@ void Player::Salvage::Update(const Player& player)
 	}
 	pos.y = player.pos.y + 8;
 
+	// swintching falg
+	if (Keyboard::Instance()->GetDown(KEY_INPUT_SPACE) == 1)	isSalvage = !isSalvage;
+
 	// salvaging
-	if (Keyboard::Instance()->GetDown(KEY_INPUT_R) >= 1) {
-		count++;
-		isSalvage = true;
-	}
-	else {
-		count--;
-	}
+	if (isSalvage)	count++;
+	else count--;
 
 	count = std::min(std::max(count, 0), Time - 1);
 
@@ -208,9 +207,9 @@ void Player::Salvage::Update(const Player& player)
 
 void Player::Salvage::Draw(const Player& player)
 {
-	if ( !isSalvage )	return;
+	if ( count == 0 )	return;
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < FrameNum; i++)
 	{
 		if(count >= (i * FrameTime) && count < (i * FrameTime) + FrameTime)
 			DrawRotaGraph(pos.x, pos.y, 1., 0., gh[i], true, player.isTurn);

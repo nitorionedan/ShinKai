@@ -38,16 +38,25 @@ void Stage::setup()
 
 	// input file strings
 	std::string buf;
+	std::string dir("Sounds/");
+	char tmpChar;
 
 	while ( !ios.eof() )
 	{
-		// strcat
-		char tmpChar;
 		tmpChar = ios.get();
+		printfDx("%c", tmpChar);
+
+		if (tmpChar == EOF)
+		{
+			printfDx("\nEOF‚ðŒŸo", tmpChar);
+			break;
+		}
+
+		// strcat
 		buf += tmpChar;
 
 		// set level01 bgm
-		if(buf == "level01 = " || buf == "level01=")
+		if(buf == "level01 = ")
 		{
 			buf.clear();
 			while (T_T) // cry
@@ -55,7 +64,6 @@ void Stage::setup()
 				tmpChar = ios.get();
 				if(tmpChar == '\n' || tmpChar == EOF)
 				{
-					std::string dir("Sounds/");
 					dir += buf;
 					sound->Load(dir.c_str(), "bgm01");
 					buf.clear();
@@ -75,7 +83,7 @@ void Stage::Initialize()
 {
 	c_alpha = 0;
 	field->StageSwitching(8, 9);
-	sound->List();
+//	sound->List();
 	sound->PlayMem("bgm01", DX_PLAYTYPE_LOOP);
 }
 
